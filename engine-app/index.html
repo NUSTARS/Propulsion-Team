@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
+    <title>engiNUity</title>
+  </head>
+  <body>
+    <h1>Howdy :)</h1>
+	<div id='canvas-division'>
+	<!-- Canvases will be added here -->
+	</div>
+	<!-- <canvas id="readings"></canvas> -->
+	<script src="./node_modules/chart.js/dist/chart.umd.min.js"></script>
+	<script src="./renderer.js"></script>
+  </body>
+</html>

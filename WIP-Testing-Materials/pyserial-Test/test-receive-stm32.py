@@ -11,7 +11,7 @@ while True:
     ser.write(bytes([data_to_send]))
     print(bytes([data_to_send]))
     print("0\n")
-    time.sleep(1)
+    time.sleep(1) 
     
     data_to_send = 1
     ser.write(bytes([data_to_send]))

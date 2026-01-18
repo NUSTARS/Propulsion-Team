@@ -11,4 +11,5 @@ contextBridge.exposeInMainWorld('electronAPI', {
 	getSerialPorts: () => SerialPort.list(),
 	sendSerialPath: (path) => ipcRenderer.send('serial-path', path),
 	sendLoadMain: () => ipcRenderer.send('load-main'),
+	sendControlMessage: (controlByte) => ipcRenderer.send('control-byte', controlByte)
 });

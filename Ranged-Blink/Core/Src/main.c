@@ -67,6 +67,11 @@ static void MX_UART4_Init(void);
   * @brief  The application entry point.
   * @retval int
   */
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart){
+
+}
+
 int main(void)
 {
 
@@ -155,6 +160,12 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   }
+
+  // periodically send data:
+
+  HAL_UART_Transmit_DMA(&huart4, (uint8_t*) buf, 16, HAL_MAX_DELAY);
+
+
   /* USER CODE END 3 */
 }
 

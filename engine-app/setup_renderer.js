@@ -61,8 +61,13 @@ function initEngineCommunication() {
 
 initEngineCommsButton.addEventListener("click", initEngineCommunication);
 
-setup_main();
+// Handle valve toggling
+const solenoid1Switch = document.getElementById("setup::solenoid-1");
+const solenoid2Switch = document.getElementById("setup::solenoid-2");
+const motorized1Switch = document.getElementById("setup::motorized-1");
+const motorized2Switch = document.getElementById("setup::motorized-2");
 
+setup_main();
 
 // Defining format of configuration message
 //

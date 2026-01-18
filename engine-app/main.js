@@ -57,7 +57,7 @@ let parser;
 // initialize, but do not start serial port
 ipcMain.on('serial-path', (_event, path) => {
 	if (path !== 'none' && !sp) {
-		sp = new SerialPort({path: 'COM3', baudRate: 9600, autoOpen: false});
+		sp = new SerialPort({path: path, baudRate: 9600, autoOpen: false});
 	}
 	else {
 		// error
@@ -82,7 +82,7 @@ ipcMain.on('load-main', () => {
 
 function startLogging() {
 	parser = sp.pipe(new ByteLengthParser({length: 6}));
-	sp.open(() => {sp.flush()});
+	sp.open(() => {sp.flush()}); //
 	
 	parser.on('data', (chunk) => {
 		//console.log(chunk);

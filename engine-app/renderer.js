@@ -7,6 +7,8 @@
 const canvasDiv = document.getElementById('canvas-division');
 canvasDiv.style.height = '400px';
 
+const switchDiv = document.getElementById('switch-div');
+
 // SensorGraph class
 class SensorGraph {
 	// constructor
@@ -60,6 +62,36 @@ class SensorGraph {
 		this.chart.update();
 	}
 	
+}
+
+// Switch code! (YET TO BE TESTED---MAY HAVE BROKEN EVERYTHING)
+const switchType = Object.freeze({
+	RELAY: 'relay',
+	SOLENOID: 'solenoid',
+	MOTORIZED: 'motorized'
+});
+
+const switchCount = 0;
+
+function activateSwitch() {
+
+}
+
+function createSwitch(switchType, labelText) {
+	const checkbox = document.createElement('input');
+	this.checkbox.type = 'checkbox';
+	this.checkbox.id = switchType + '-' + switchCount.toString();
+
+	const label = document.createElement('label');
+	label.htmlFor = checkbox.id;
+	label.appendChild(document.createTextNode(labelText));
+
+	switchDiv.appendChild(checkbox);
+	switchDiv.appendChild(label);
+	switchDiv.appendChild(document.createElement('br'));
+
+	checkbox.addEventListener('change', activateSwitch);
+	++switchCount;
 }
 
 // some constants (temporary)

@@ -70,8 +70,15 @@ ipcMain.on('serial-path', (_event, path) => {
 ipcMain.on('load-main', () => {
 	mainWindow.loadFile('index.html');
 	startLogging();
+
+	
 });
 
+
+// handle sending bytes when we get the message
+ipcMain.on('control-byte', (_event, controlByte) => {
+	sp.write(Buffer.from([controlByte]));
+})
 
 
 //sp = new SerialPort({path: 'COM3', baudRate: 9600});

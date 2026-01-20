@@ -71,27 +71,34 @@ const switchType = Object.freeze({
 	MOTORIZED: 'motorized'
 });
 
-const switchCount = 0;
+// const switchCount = 0;
 
-function activateSwitch() {
+// function activateSwitch() {
 
-}
+// }
 
-function createSwitch(switchType, labelText) {
-	const checkbox = document.createElement('input');
-	this.checkbox.type = 'checkbox';
-	this.checkbox.id = switchType + '-' + switchCount.toString();
+// function createSwitch(switchType, labelText) {
+// 	const checkbox = document.createElement('input');
+// 	this.checkbox.type = 'checkbox';
+// 	this.checkbox.id = switchType + '-' + switchCount.toString();
 
-	const label = document.createElement('label');
-	label.htmlFor = checkbox.id;
-	label.appendChild(document.createTextNode(labelText));
+// 	const label = document.createElement('label');
+// 	label.htmlFor = checkbox.id;
+// 	label.appendChild(document.createTextNode(labelText));
 
-	switchDiv.appendChild(checkbox);
-	switchDiv.appendChild(label);
-	switchDiv.appendChild(document.createElement('br'));
+// 	switchDiv.appendChild(checkbox);
+// 	switchDiv.appendChild(label);
+// 	switchDiv.appendChild(document.createElement('br'));
 
-	checkbox.addEventListener('change', activateSwitch);
-	++switchCount;
+// 	checkbox.addEventListener('change', activateSwitch);
+// 	++switchCount;
+// }
+
+class Switch {
+	constructor(controlledElement) {
+		this.on = false;
+		this.type = controlledElement;
+	}
 }
 
 // some constants (temporary)

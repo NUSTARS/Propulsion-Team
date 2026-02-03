@@ -7,7 +7,7 @@
 const canvasDiv = document.getElementById('canvas-division');
 canvasDiv.style.height = '400px';
 
-const switchDiv = document.getElementById('switch-div');
+const switchDiv = document.getElementById('switch-division');
 
 // SensorGraph class
 class SensorGraph {
@@ -94,19 +94,53 @@ const switchType = Object.freeze({
 // 	++switchCount;
 // }
 
-class Switch {
-	constructor(controlledElement) {
+let controlState = 0;
+
+class Valve {
+	constructor(name, byteNum, bit) {
 		this.on = false;
-		this.type = controlledElement;
+		//this.type = controlledElement;
+		// add checkbox to division
+		this.checkbox = document.createElement('input');
+		this.checkbox.type = 'checkbox';
+		this.checkbox.id = name;
+
+		this.boxLabel = document.createElement('label');
+		this.boxLabel.innerText = name;
+		this.boxLabel.for = name;
+
+		switchDiv.appendChild(this.boxLabel);
+		switchDiv.appendChild(this.checkbox);
+
+		this.name = name;
+		this.byteNum = byteNum;
+		this.bit = bit;
+
+		this.checkbox.addEventListener('change', () => {
+			this.on = !this.on
+			// branch on bit manipulations to control state
+			if (this.on) { 
+				controlState |= 1 << this.bit;
+			} else {
+				controlState &= ~(1 << this.bit);
+			}
+			electronAPI.sendControlMessage(controlState);
+		})
 	}
 }
 
 // some constants (temporary)
-const num_graphs = 6;
+const num_graphs = 1;
 let graphs = [];
 for (let i = 0; i < num_graphs; i++) {
 	graphs.push(new SensorGraph(i.toString()));
 }
+
+
+solenoid1 = new Valve("solenoid 1", 0, 0)
+solenoid2 = new Valve("solenoid 2", 0, 1)
+servo1 = new Valve("servo ball valve 1", 0, 2)
+servo2 = new Valve("servo ball valve 2", 0, 3)
 
 
 // Main execution (we could put it in a function, but idk what to call it (this is me attempting to be funny))

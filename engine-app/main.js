@@ -77,7 +77,14 @@ ipcMain.on('load-main', () => {
 
 // handle sending bytes when we get the message
 ipcMain.on('control-byte', (_event, controlByte) => {
-	sp.write(Buffer.from([controlByte]));
+	console.log(controlByte);
+	if (controlByte) {
+		sp.write(Buffer.from([1]));
+	}
+	else {
+		sp.write(Buffer.from([0]));
+	}
+	
 })
 
 
@@ -91,12 +98,29 @@ function startLogging() {
 	parser = sp.pipe(new ByteLengthParser({length: 6}));
 	sp.open(() => {sp.flush()}); //
 	
+	// TODO write top row of CSV
+
 	parser.on('data', (chunk) => {
 		//console.log(chunk);
 		// TODO: set up system of parsing serial packets
 		
 		// send chunk
 		mainWindow.webContents.send('serial-packet', chunk);
+		
+		// 
+
+		let csvline = '';
+		for (const val of chunk) {
+			if (csvline == '') {
+				csvline = csvline + String(val);
+			}
+			else {
+				csvline = csvline + ', ' + String(val)
+			}
+		}
+		csvline = csvline + '\n';
+		
+		fs.appendFile('temp_log.csv', csvline, (err) => {});
 		/*
 		for (const value of chunk) {
 			

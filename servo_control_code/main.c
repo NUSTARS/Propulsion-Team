@@ -59,13 +59,13 @@ static void MX_TIM2_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-void setAngle(uint32_t angle) {
+void setAngle(uint32_t angle, TIM_HandleTypeDef tim, uint32_t channel) {
     if (angle > 180) angle = 180;
     uint32_t minPulseWidth = 1000;
     uint32_t maxPulseWidth = 3000;
     uint32_t pulse = ((angle * (maxPulseWidth - minPulseWidth)) / 180) + minPulseWidth;
 
-    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, pulse);
+    __HAL_TIM_SET_COMPARE(tim, channel, pulse);
 }
 /* USER CODE END 0 */
 
@@ -103,8 +103,12 @@ int main(void)
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 
 
+
   uint32_t angle = 0;
   uint32_t open = 0;
+
+  uint32_t servo_0_open = 0;
+  uint32_t servo_1_open = 0;
   /* USER CODE END 2 */
 
   /* Initialize leds */
@@ -113,7 +117,7 @@ int main(void)
   BSP_LED_Init(LED_RED);
 
   /* Initialize USER push-button, will be used to trigger an interrupt each time it's pressed.*/
-  BSP_PB_Init(BUTTON_USER, BUTTON_MODE_GPIO);
+  BSP_PB_Init(BUTTON_USER, BUTTON_MODE_EXTI);
 
   /* Initialize COM1 port (115200, 8 bits (7-bit data + 1 stop bit), no parity */
   BspCOMInit.BaudRate   = 115200;
@@ -130,21 +134,21 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if (angle >= 180){
-		  HAL_Delay(2500);
-		  open = 0;
-	  } else if (angle <= 0){
-		  HAL_Delay(2500);
-		  open = 1;
-	  }
-	  // Make rotation happen
-	  if (open){
-		  if (angle < 180) {angle++;}
+
+
+	  if (servo_0_open){
+		  setAngle(180, &tim2, TIM_CHANNEL_1);
 	  } else{
-		  if (angle > 0){angle --;}
+		  setAngle(0, &tim2, TIM_CHANNEL_1);
 	  }
-	  setAngle(angle);
-	  // Speed of rotation
+
+	  if (servo_1_open){
+		  setAngle(180, &tim2, TIM_CHANNEL_2);
+	  } else{
+		  setAngle(0, &tim2, TIM_CHANNEL_2);
+	  }
+
+
 	  HAL_Delay(1);
 
     /* USER CODE END WHILE */
@@ -176,13 +180,12 @@ void SystemClock_Config(void)
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_DIV4;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
-  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSI;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 1;
-  RCC_OscInitStruct.PLL.PLLN = 10;
+  RCC_OscInitStruct.PLL.PLLN = 20;
   RCC_OscInitStruct.PLL.PLLP = 2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
   RCC_OscInitStruct.PLL.PLLR = 2;
@@ -262,6 +265,10 @@ static void MX_TIM2_Init(void)
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
   }

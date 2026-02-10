@@ -96,7 +96,7 @@ const switchType = Object.freeze({
 
 let controlState = 0;
 
-class Valve {
+class BinaryActuator {
 	constructor(name, byteNum, bit) {
 		this.on = false;
 		//this.type = controlledElement;
@@ -137,10 +137,11 @@ for (let i = 0; i < num_graphs; i++) {
 }
 
 
-solenoid1 = new Valve("solenoid 1", 0, 0)
-solenoid2 = new Valve("solenoid 2", 0, 1)
-servo1 = new Valve("servo ball valve 1", 0, 2)
-servo2 = new Valve("servo ball valve 2", 0, 3)
+solenoid1 = new BinaryActuator("solenoid 1", 0, 0)
+solenoid2 = new BinaryActuator("solenoid 2", 0, 1)
+servo1 = new BinaryActuator("servo ball valve 1", 0, 2)
+servo2 = new BinaryActuator("servo ball valve 2", 0, 3)
+sparkPlug = new BinaryActuator("spark plug", 0, 4)
 
 
 // Main execution (we could put it in a function, but idk what to call it (this is me attempting to be funny))

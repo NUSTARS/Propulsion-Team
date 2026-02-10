@@ -67,41 +67,6 @@ setup_main();
 //
 
 
-// DEFINING ENGINE CONFIGURATION OBJECT
-
-
-/*
-{
-	"adc_pins" : [
-		{
-			"pin": P0,
-			"function": (value) => {value}
-		},
-		{
-			"pin": P1,
-			"function": (value) => {
-		}
-	],
-	"gpio_pins" : [
-		{
-			"pin": P3,
-		}
-	]
-	"i2c" : {
-		sda:
-		scl: 
-		addrs: [
-			{
-				a
-			}
-		
-		]
-	}
-	
-	
-}
 
 
 
-
-*/

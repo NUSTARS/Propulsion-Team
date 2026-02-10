@@ -12,14 +12,19 @@
       content="default-src 'self'; script-src 'self'"
     />
     <title>engiNUity</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
+  
   <body>
-    <h1>Howdy :)</h1>
+    <h1>🚀 Welcome to engiNUity 🔥</h1>
 	  <label for="serialport-select">Select a Serial Port: </label>
 	  <select id="serialport-select" name="Serial Port">
 		  <!-- Options determined via renderer.js -->
 	  </select>
-	  <button id="setup::reload-serialport-options">Reload Options</button> <br />
+	  <button id="setup::reload-serialport-options">Reload Options</button> 
+    <br />
+    <label for="setup::csv-path">Enter log file name:</label><input type="text" id="setup::csv-path"> </input> 
+    <br />
 	  <button id="setup::init-engine-comms">Initialize Engine Communication</button> <br />
   </body>
   <script src="./setup_renderer.js"></script>

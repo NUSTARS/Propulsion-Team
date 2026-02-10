@@ -21,6 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
 
 /* USER CODE END Includes */
 
@@ -32,13 +33,21 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-typedef struct ADC_res {
-    uint16_t res1;
-    uint16_t res2;
-    uint16_t res3;
-    uint16_t res4;
-    uint16_t res5;
+
+
+
+typedef union {
+    struct {
+        uint16_t res1;
+        uint16_t res2;
+        uint16_t res3;
+        uint16_t res4;
+        uint16_t res5;
+    } values;
+    uint8_t bytes_data[10];
 } ADC_res;
+
+ADC_res pressure_transducer_outputs;
 
 const int ADC_ARRAY_1 = 1;
 const int ADC_ARRAY_2 = 2;
@@ -47,6 +56,8 @@ const int ADC_ARRAY_2 = 2;
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+
+
 
 /* USER CODE END PM */
 
@@ -57,10 +68,10 @@ ADC_HandleTypeDef hadc3;
 DMA_HandleTypeDef hdma_adc2;
 DMA_HandleTypeDef hdma_adc3;
 
-TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 
 UART_HandleTypeDef huart4;
+UART_HandleTypeDef huart3;
 
 /* USER CODE BEGIN PV */
 
@@ -75,10 +86,10 @@ static void MX_DMA_Init(void);
 static void MX_BDMA_Init(void);
 static void MX_ADC2_Init(void);
 static void MX_ADC3_Init(void);
-static void MX_TIM1_Init(void);
 static void MX_UART4_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_ADC1_Init(void);
+static void MX_USART3_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -86,120 +97,171 @@ static void MX_ADC1_Init(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+#ifdef __GNUC__
+#define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+#define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif
+
+PUTCHAR_PROTOTYPE
+{
+  HAL_UART_Transmit(&huart3, (uint8_t *)&ch, 1, 0xFFFF);
+  return ch;
+}
 
 
 // for servo:
 
-void setAngle(uint32_t angle) {
-    if (angle > 180) angle = 180;
+
+
+void setAngle(uint32_t angle,uint32_t channel) {
+    if (angle > 270) angle = 270;
     uint32_t minPulseWidth = 500;
     uint32_t maxPulseWidth = 2500;
-    uint32_t pulse = ((angle * (maxPulseWidth - minPulseWidth)) / 180) + minPulseWidth;
-    __HAL_TIM_SET_COMPARE(&htim2, TIM_CHANNEL_1, pulse);
+    uint32_t pulse = ((angle * (maxPulseWidth - minPulseWidth)) / 270) + minPulseWidth;
+    __HAL_TIM_SET_COMPARE(&htim2, channel, pulse);
 }
 
-
 uint8_t input_data;
-uint16_t solenoid_state;
-uint16_t valve_state;
-ADC_res pressure_transducer_data;
-
-
+//uint16_t solenoid_state;
+uint8_t valve_state = 0x00;
+int num_servos = 2;
+//
+//
 void send_data(uint8_t* buffer, int size){
 	HAL_UART_Transmit_DMA(&huart4, buffer, size);
 
 }
-
-
-
+//
+//
+//
 void get_pressure_data(ADC_res* res){
 
-	uint32_t adc_values1[ADC_ARRAY_1];
-	uint32_t adc_values2[ADC_ARRAY_2];
-	uint32_t adc_values3[ADC_ARRAY_2];
+	uint16_t adc_values1[ADC_ARRAY_1];
+	uint16_t adc_values2[ADC_ARRAY_2];
+	uint16_t adc_values3[ADC_ARRAY_2];
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_values1, 1);
 	HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc_values2, 2);
 	HAL_ADC_Start_DMA(&hadc3, (uint32_t*)adc_values3, 2);
-	res->res1 = adc_values1[0];
-	res->res2 = adc_values1[1];
-	res->res3 = adc_values2[0];
-	res->res4 = adc_values2[1];
-	res->res5 = adc_values3[0];
 
-	uint8_t data_to_send[] = {};
 
-	// ADC bit resolution - 12 bits
+	pressure_transducer_outputs.res1 = adc_values1[0];
+	pressure_transducer_outputs.res1 = adc_values2[0];
+	pressure_transducer_outputs.res3 = adc_values2[1];
+	pressure_transducer_outputs.res4 = adc_values3[0];
+	pressure_transducer_outputs.res5 = adc_values3[1];
 
-	send_data(data_to_send, 5);
+	//ADC bit resolution - 12 bits
 
+	send_data(pressure_transducer_outputs, 5);
 
 }
-
-void control_solenoids(uint16_t input_data, uint16_t* solenoid_state){
-
-	if ((input_data & 0x1) != (*solenoid_state & 0x1)){
-		if (input_data & 0x1){
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-		}
-		else{
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-		}
-
+//
+//void control_solenoids(uint16_t input_data, uint16_t* solenoid_state){
+//
+//	if ((input_data & 0x1) != (*solenoid_state & 0x1)){
+//		if (input_data & 0x1){
+//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+//		}
+//		else{
+//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+//		}
+//
+//	}
+//	if ((input_data & 0x2) != (*solenoid_state & 0x2)){
+//		if (input_data & 0x2){
+//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+//		}
+//		else{
+//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+//		}
+//	}
+//	*solenoid_state = input_data;
+//}
+//
+void close_servo(uint8_t servo_num){
+	if (servo_num == 0){
+		setAngle(0, TIM_CHANNEL_1);
+	} else if (servo_num == 1){
+		setAngle(0, TIM_CHANNEL_2);
 	}
-	if ((input_data & 0x2) != (*solenoid_state & 0x2)){
-		if (input_data & 0x2){
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-		}
-		else{
-			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-		}
+
+}
+void open_servo(uint8_t servo_num){
+	if (servo_num == 0){
+		setAngle(90, TIM_CHANNEL_1);
+	} else if (servo_num == 1){
+		setAngle(90, TIM_CHANNEL_2);
 	}
-	*solenoid_state = input_data;
 }
 
-void close_servo(){
+uint8_t control_ballvalves(uint8_t input_data, uint8_t valve_state){
 
-}
-void open_servo(){
-
-}
-
-void control_ballvalves(uint16_t input_data, uint16_t* valve_state){
-	if ((input_data & 0x1) != (*valve_state & 0x1)){
-		if (input_data & 0x4){
-			close_servo();
-		}
-		else{
-			open_servo();
-		}
-
-		}
-		if ((input_data & 0x2) != (*valve_state & 0x2)){
-			if (input_data & 0x8){
-				close_servo();
+	for (int i = 0; i < num_servos; i++){
+		uint8_t cur_servo_state = (valve_state >> i) & 0x1;
+		uint8_t cur_input_state = (input_data >> i) & 0x1;
+		if (cur_servo_state != cur_input_state){
+			if (cur_servo_state){
+				open_servo(i);
 			}
 			else{
-				open_servo();
+				close_servo(i);
 			}
 		}
-		*valve_state = input_data;
+	}
+
+//	if ((input_data & 0x1) != (valve_state & 0x1)){
+//		if (input_data & 0x1){
+//			open_servo(0);
+//		}
+//		else{
+//			close_servo(0);
+//
+//		}
+//
+//		}
+//		if ((input_data & 0x2) != (valve_state & 0x2)){
+//			if (input_data & 0x2){
+//				open_servo(1);
+//			}
+//			else{
+//				close_servo(1);
+//			}
+//		}
+	return input_data;
 
 }
-
-
-
+//
+//
+//
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (huart->Instance == UART4) {
     	// solenoids - 0 and 1
-        control_solenoids(input_data, &solenoid_state);
+//    	if (input_data==0){
+//    		close_servo(0);
+//    		close_servo(1);
+//    	}
+//    	else {
+//    		open_servo(0);
+//    		open_servo(1);
+//    	}
+//        control_solenoids(input_data, &solenoid_state);
+//
+//        // ballvalves 2 and 3
+    	//input_data = input_data;
 
-        // ballvalves 2 and 3
-        uint16_t ball_valve_data = input_data >> 2;
+    	printf("%x\n", input_data);
+    	printf("%x\n", valve_state);
 
-        control_ballvalves(ball_valve_data, &valve_state);
+    	uint8_t ball_valve_data = input_data >> 2;
+    	//valve_state = input_data;
+
+        valve_state = control_ballvalves(ball_valve_data, valve_state);
         HAL_UART_Receive_IT(&huart4, &input_data, 1);
     }
 }
+
+
 
 
 
@@ -213,6 +275,8 @@ int main(void)
 {
 
   /* USER CODE BEGIN 1 */
+
+
 
 
 
@@ -246,16 +310,19 @@ int main(void)
   MX_BDMA_Init();
   MX_ADC2_Init();
   MX_ADC3_Init();
-  MX_TIM1_Init();
   MX_UART4_Init();
   MX_TIM2_Init();
   MX_ADC1_Init();
+  MX_USART3_UART_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
 
 
 
 
   HAL_UART_Receive_IT(&huart4, &input_data, 1);
+
 
 
   /* USER CODE END 2 */
@@ -265,7 +332,10 @@ int main(void)
 
   while (1)
   {
+	 //printf("Hi\n");
+	 HAL_Delay(1000);
     /* USER CODE END WHILE */
+
 
     /* USER CODE BEGIN 3 */
   }
@@ -291,17 +361,21 @@ void SystemClock_Config(void)
 
   while(!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
 
-  /** Macro to configure the PLL clock source
-  */
-  __HAL_RCC_PLL_PLLSOURCE_CONFIG(RCC_PLLSOURCE_HSI);
-
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
   */
-  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
-  RCC_OscInitStruct.HSIState = RCC_HSI_DIV1;
-  RCC_OscInitStruct.HSICalibrationValue = RCC_HSICALIBRATION_DEFAULT;
-  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+  RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
+  RCC_OscInitStruct.HSEState = RCC_HSE_ON;
+  RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
+  RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
+  RCC_OscInitStruct.PLL.PLLM = 1;
+  RCC_OscInitStruct.PLL.PLLN = 20;
+  RCC_OscInitStruct.PLL.PLLP = 2;
+  RCC_OscInitStruct.PLL.PLLQ = 2;
+  RCC_OscInitStruct.PLL.PLLR = 2;
+  RCC_OscInitStruct.PLL.PLLRGE = RCC_PLL1VCIRANGE_3;
+  RCC_OscInitStruct.PLL.PLLVCOSEL = RCC_PLL1VCOMEDIUM;
+  RCC_OscInitStruct.PLL.PLLFRACN = 0;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK)
   {
     Error_Handler();
@@ -312,7 +386,7 @@ void SystemClock_Config(void)
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2
                               |RCC_CLOCKTYPE_D3PCLK1|RCC_CLOCKTYPE_D1PCLK1;
-  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
+  RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.SYSCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_HCLK_DIV1;
   RCC_ClkInitStruct.APB3CLKDivider = RCC_APB3_DIV1;
@@ -337,10 +411,10 @@ void PeriphCommonClock_Config(void)
   /** Initializes the peripherals clock
   */
   PeriphClkInitStruct.PeriphClockSelection = RCC_PERIPHCLK_ADC;
-  PeriphClkInitStruct.PLL2.PLL2M = 4;
-  PeriphClkInitStruct.PLL2.PLL2N = 10;
+  PeriphClkInitStruct.PLL2.PLL2M = 1;
+  PeriphClkInitStruct.PLL2.PLL2N = 19;
   PeriphClkInitStruct.PLL2.PLL2P = 2;
-  PeriphClkInitStruct.PLL2.PLL2Q = 2;
+  PeriphClkInitStruct.PLL2.PLL2Q = 4;
   PeriphClkInitStruct.PLL2.PLL2R = 2;
   PeriphClkInitStruct.PLL2.PLL2RGE = RCC_PLL2VCIRANGE_3;
   PeriphClkInitStruct.PLL2.PLL2VCOSEL = RCC_PLL2VCOMEDIUM;
@@ -560,86 +634,6 @@ static void MX_ADC3_Init(void)
 }
 
 /**
-  * @brief TIM1 Initialization Function
-  * @param None
-  * @retval None
-  */
-static void MX_TIM1_Init(void)
-{
-
-  /* USER CODE BEGIN TIM1_Init 0 */
-
-  /* USER CODE END TIM1_Init 0 */
-
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
-  TIM_OC_InitTypeDef sConfigOC = {0};
-  TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
-
-  /* USER CODE BEGIN TIM1_Init 1 */
-
-  /* USER CODE END TIM1_Init 1 */
-  htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 0;
-  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 65535;
-  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-  htim1.Init.RepetitionCounter = 0;
-  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
-  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  if (HAL_TIM_PWM_Init(&htim1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
-  sMasterConfig.MasterOutputTrigger2 = TIM_TRGO2_RESET;
-  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sConfigOC.OCMode = TIM_OCMODE_PWM1;
-  sConfigOC.Pulse = 0;
-  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
-  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
-  sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
-  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
-  sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
-  sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
-  sBreakDeadTimeConfig.DeadTime = 0;
-  sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
-  sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
-  sBreakDeadTimeConfig.BreakFilter = 0;
-  sBreakDeadTimeConfig.Break2State = TIM_BREAK2_DISABLE;
-  sBreakDeadTimeConfig.Break2Polarity = TIM_BREAK2POLARITY_HIGH;
-  sBreakDeadTimeConfig.Break2Filter = 0;
-  sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
-  if (HAL_TIMEx_ConfigBreakDeadTime(&htim1, &sBreakDeadTimeConfig) != HAL_OK)
-  {
-    Error_Handler();
-  }
-  /* USER CODE BEGIN TIM1_Init 2 */
-
-  /* USER CODE END TIM1_Init 2 */
-  HAL_TIM_MspPostInit(&htim1);
-
-}
-
-/**
   * @brief TIM2 Initialization Function
   * @param None
   * @retval None
@@ -659,9 +653,9 @@ static void MX_TIM2_Init(void)
 
   /* USER CODE END TIM2_Init 1 */
   htim2.Instance = TIM2;
-  htim2.Init.Prescaler = 0;
+  htim2.Init.Prescaler = 80-1;
   htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim2.Init.Period = 4294967295;
+  htim2.Init.Period = 20000-1;
   htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
   if (HAL_TIM_Base_Init(&htim2) != HAL_OK)
@@ -687,7 +681,11 @@ static void MX_TIM2_Init(void)
   sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
   }
@@ -714,7 +712,7 @@ static void MX_UART4_Init(void)
 
   /* USER CODE END UART4_Init 1 */
   huart4.Instance = UART4;
-  huart4.Init.BaudRate = 115200;
+  huart4.Init.BaudRate = 9600;
   huart4.Init.WordLength = UART_WORDLENGTH_8B;
   huart4.Init.StopBits = UART_STOPBITS_1;
   huart4.Init.Parity = UART_PARITY_NONE;
@@ -743,6 +741,54 @@ static void MX_UART4_Init(void)
   /* USER CODE BEGIN UART4_Init 2 */
 
   /* USER CODE END UART4_Init 2 */
+
+}
+
+/**
+  * @brief USART3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART3_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART3_Init 0 */
+
+  /* USER CODE END USART3_Init 0 */
+
+  /* USER CODE BEGIN USART3_Init 1 */
+
+  /* USER CODE END USART3_Init 1 */
+  huart3.Instance = USART3;
+  huart3.Init.BaudRate = 9600;
+  huart3.Init.WordLength = UART_WORDLENGTH_8B;
+  huart3.Init.StopBits = UART_STOPBITS_1;
+  huart3.Init.Parity = UART_PARITY_NONE;
+  huart3.Init.Mode = UART_MODE_TX_RX;
+  huart3.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart3.Init.OverSampling = UART_OVERSAMPLING_16;
+  huart3.Init.OneBitSampling = UART_ONE_BIT_SAMPLE_DISABLE;
+  huart3.Init.ClockPrescaler = UART_PRESCALER_DIV1;
+  huart3.AdvancedInit.AdvFeatureInit = UART_ADVFEATURE_NO_INIT;
+  if (HAL_UART_Init(&huart3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetTxFifoThreshold(&huart3, UART_TXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_SetRxFifoThreshold(&huart3, UART_RXFIFO_THRESHOLD_1_8) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_UARTEx_DisableFifoMode(&huart3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART3_Init 2 */
+
+  /* USER CODE END USART3_Init 2 */
 
 }
 
@@ -791,10 +837,11 @@ static void MX_GPIO_Init(void)
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5|GPIO_PIN_6, GPIO_PIN_RESET);

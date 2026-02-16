@@ -78,12 +78,7 @@ ipcMain.on('load-main', () => {
 // handle sending bytes when we get the message
 ipcMain.on('control-byte', (_event, controlByte) => {
 	console.log(controlByte);
-	if (controlByte) {
-		sp.write(Buffer.from([1]));
-	}
-	else {
-		sp.write(Buffer.from([0]));
-	}
+	sp.write(Buffer.from([controlByte]));
 	
 })
 

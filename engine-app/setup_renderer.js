@@ -39,7 +39,7 @@ async function updateSerialPortSelect() {
 
 serialPortReloadButton.addEventListener("click", updateSerialPortSelect);
 
-
+const csvPathTextInput = document.getElementById("setup::csv-path");
 
 // handle button start button press
 const initEngineCommsButton = document.getElementById("setup::init-engine-comms");
@@ -53,10 +53,9 @@ function initEngineCommunication() {
 	}
 	// send serial port path
 	electronAPI.sendSerialPath(path);
-	// send 
 	
 	// send message to load new page
-	electronAPI.sendLoadMain();
+	electronAPI.sendLoadMain(csvPathTextInput.value);
 }
 
 initEngineCommsButton.addEventListener("click", initEngineCommunication);

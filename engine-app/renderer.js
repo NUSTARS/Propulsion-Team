@@ -14,7 +14,8 @@ class SensorGraph {
 	// constructor
 	// takes in an id of an html canvas element and a title
 	// todo: add a data interpretation function? (ie scale integer to interpretable value)
-	constructor(title) {
+	constructor(title, interpFn = (x) => x) {
+		this.interpFn = interpFn;
 		this.dataPoints = {
 			labels: [],
 			datasets: [{
@@ -51,11 +52,13 @@ class SensorGraph {
 		);
 	}
 	
+	
+
 	// adds an (x, y) pair to the line chart and updates the chart
 	addPoint(x,y) {
 		this.dataPoints.labels.push(x);
 		this.dataPoints.labels = this.dataPoints.labels.slice(-50);
-		this.dataPoints.datasets[0].data.push(y);
+		this.dataPoints.datasets[0].data.push(this.interpFn(y));
 		this.dataPoints.datasets[0].data = this.dataPoints.datasets[0].data.slice(-50);
 		this.chart.data = this.dataPoints;
 		// perhaps remove this and put it in a callback?
@@ -129,11 +132,20 @@ class BinaryActuator {
 	}
 }
 
+// makes a pressure transducer interpretation function, 
+// given the resistor's resistance
+// in ohms as an input to the function
+function makePTInterpFn(resistance) {
+	// in omar we trust :)
+	return (x) => (((3300/4095)/resistance) * x * 18.75) - 75
+}
+
+// (3.3/4095 * x) * 18.75 - 75
 // some constants (temporary)
 const num_graphs = 1;
 let graphs = [];
 for (let i = 0; i < num_graphs; i++) {
-	graphs.push(new SensorGraph(i.toString()));
+	graphs.push(new SensorGraph(i.toString(), (x) => 2*x));
 }
 
 

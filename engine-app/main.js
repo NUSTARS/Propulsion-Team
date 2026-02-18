@@ -67,9 +67,10 @@ ipcMain.on('serial-path', (_event, path) => {
 });
 
 // load main page with all the graphs and buttons and stuff
-ipcMain.on('load-main', () => {
+ipcMain.on('load-main', (_event, csvPath) => {
 	mainWindow.loadFile('index.html');
-	startLogging();
+	console.log(csvPath);
+	startLogging(csvPath);
 
 	
 });
@@ -89,7 +90,7 @@ ipcMain.on('control-byte', (_event, controlByte) => {
 //sp.open();
 
 
-function startLogging() {
+function startLogging(csvPath) {
 	parser = sp.pipe(new ByteLengthParser({length: 6}));
 	sp.open(() => {sp.flush()}); //
 	
@@ -115,7 +116,7 @@ function startLogging() {
 		}
 		csvline = csvline + '\n';
 		
-		fs.appendFile('temp_log.csv', csvline, (err) => {});
+		fs.appendFile(csvPath, csvline, (err) => {});
 		/*
 		for (const value of chunk) {
 			

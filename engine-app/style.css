@@ -2,10 +2,58 @@ body {
     font-family: "Helvetica", "Arial", sans-serif;
     background-color: #1a1020;
     color: #ffffff;
+    text-align: center;
 }
 
 h1 {
     border: 2px Solid #a566ca;
     padding: 5px;
     border-radius: 8px;
+    text-align: center;
+}
+
+canvas{
+    border: 4px Solid rgb(107, 212, 140);
+    background-color: rgb(253, 242, 255);
+    border-radius: 8px;
+}
+
+#mainMenuBody{
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    justify-content: center;
+    align-items: center;
+    animation: backgroundStars 5s infinite alternate ease-in-out;
+}
+
+#mainMenuDiv{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#switchDiv{
+    position:fixed;
+    grid-template-columns: repeat(2, 10px);
+    border: 2px solid #a566ca;
+    background-color: #ffffff;
+    text-align: center;
+    color: black;
+    width:max-content;
+    border-radius: 8px;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+}
+
+#checkboxLabel{
+    font-size: 20px;
+}
+
+#myCheckbox{
+    background-color: #a566ca;
+    width: 20px;
+    height: 20px;
+    margin: 0px;
 }

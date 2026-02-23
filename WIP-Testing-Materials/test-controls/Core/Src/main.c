@@ -33,17 +33,17 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-
-
-
-typedef union {
-    struct {
+typedef struct {
         uint16_t res1;
         uint16_t res2;
         uint16_t res3;
         uint16_t res4;
         uint16_t res5;
-    } values;
+    } pt_values;
+
+
+typedef union {
+	pt_values values;
     uint8_t bytes_data[10];
 } ADC_res;
 
@@ -68,6 +68,7 @@ ADC_HandleTypeDef hadc3;
 DMA_HandleTypeDef hdma_adc2;
 DMA_HandleTypeDef hdma_adc3;
 
+TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
 
 UART_HandleTypeDef huart4;
@@ -90,6 +91,7 @@ static void MX_UART4_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_USART3_UART_Init(void);
+static void MX_TIM1_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -123,7 +125,7 @@ void setAngle(uint32_t angle,uint32_t channel) {
 }
 
 uint8_t input_data;
-//uint16_t solenoid_state;
+uint8_t solenoid_state;
 uint8_t valve_state = 0x00;
 int num_servos = 2;
 //
@@ -135,7 +137,7 @@ void send_data(uint8_t* buffer, int size){
 //
 //
 //
-void get_pressure_data(ADC_res* res){
+void get_pressure_data(){
 
 	uint16_t adc_values1[ADC_ARRAY_1];
 	uint16_t adc_values2[ADC_ARRAY_2];
@@ -145,40 +147,41 @@ void get_pressure_data(ADC_res* res){
 	HAL_ADC_Start_DMA(&hadc3, (uint32_t*)adc_values3, 2);
 
 
-	pressure_transducer_outputs.res1 = adc_values1[0];
-	pressure_transducer_outputs.res1 = adc_values2[0];
-	pressure_transducer_outputs.res3 = adc_values2[1];
-	pressure_transducer_outputs.res4 = adc_values3[0];
-	pressure_transducer_outputs.res5 = adc_values3[1];
+
+	pressure_transducer_outputs.values.res1 = adc_values1[0];
+	pressure_transducer_outputs.values.res2 = adc_values2[0];
+	pressure_transducer_outputs.values.res3 = adc_values2[1];
+	pressure_transducer_outputs.values.res4 = adc_values3[0];
+	pressure_transducer_outputs.values.res5 = adc_values3[1];
 
 	//ADC bit resolution - 12 bits
 
-	send_data(pressure_transducer_outputs, 5);
+	send_data((uint8_t*) &pressure_transducer_outputs, 5);
 
 }
-//
-//void control_solenoids(uint16_t input_data, uint16_t* solenoid_state){
-//
-//	if ((input_data & 0x1) != (*solenoid_state & 0x1)){
-//		if (input_data & 0x1){
-//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-//		}
-//		else{
-//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
-//		}
-//
-//	}
-//	if ((input_data & 0x2) != (*solenoid_state & 0x2)){
-//		if (input_data & 0x2){
-//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
-//		}
-//		else{
-//			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
-//		}
-//	}
-//	*solenoid_state = input_data;
-//}
-//
+
+uint8_t control_solenoids(uint8_t input_data, uint8_t solenoid_state){
+
+	if ((input_data & 0x1) != (solenoid_state & 0x1)){
+		if (input_data & 0x1){
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+		}
+		else{
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_RESET);
+		}
+
+	}
+	if ((input_data & 0x2) != (solenoid_state & 0x2)){
+		if (input_data & 0x2){
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
+		}
+		else{
+			HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
+		}
+	}
+	return input_data;
+}
+
 void close_servo(uint8_t servo_num){
 	if (servo_num == 0){
 		setAngle(0, TIM_CHANNEL_1);
@@ -231,9 +234,42 @@ uint8_t control_ballvalves(uint8_t input_data, uint8_t valve_state){
 	return input_data;
 
 }
+
+void spark_plug_on(){
+	printf("Turning spark plug on\n");
+//	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_SET);
+//	HAL_TIM_OnePulse_Start_IT()
+//	HAL_TIM_Base_Start_IT(&htim1);
+
+	__HAL_TIM_SET_COUNTER(&htim1, 0);
+
+	    // 2. Clear any pending interrupts to avoid an immediate callback
+	__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
+
+	HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1);
+}
+
+void spark_plug_off(){
+	printf("Turning spark plug off\n");
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
+	HAL_TIM_Base_Stop_IT(&htim1);
+}
+
+
+
+void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
+	printf("Reached timer callback");
+	if (htim->Instance == TIM1)
+		  {
+			spark_plug_off();
+		  }
+
+}
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 //
-//
-//
+//}
+
+
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (huart->Instance == UART4) {
     	// solenoids - 0 and 1
@@ -250,7 +286,12 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 //        // ballvalves 2 and 3
     	//input_data = input_data;
 
+    	printf("In callback\n");
     	printf("%x\n", input_data);
+
+    	solenoid_state = control_solenoids(input_data, solenoid_state);
+
+
     	printf("%x\n", valve_state);
 
     	uint8_t ball_valve_data = input_data >> 2;
@@ -258,6 +299,17 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
         valve_state = control_ballvalves(ball_valve_data, valve_state);
         HAL_UART_Receive_IT(&huart4, &input_data, 1);
+
+        // spark plug - on 0.5 s timer & GPIO pin
+
+        if (input_data >> 5){
+        	spark_plug_on();
+        }
+
+
+
+
+
     }
 }
 
@@ -314,9 +366,12 @@ int main(void)
   MX_TIM2_Init();
   MX_ADC1_Init();
   MX_USART3_UART_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_Base_Start_IT(&htim1);
+
 
 
 
@@ -334,8 +389,8 @@ int main(void)
   {
 	 //printf("Hi\n");
 	 HAL_Delay(1000);
+	 get_pressure_data();
     /* USER CODE END WHILE */
-
 
     /* USER CODE BEGIN 3 */
   }
@@ -634,6 +689,97 @@ static void MX_ADC3_Init(void)
 }
 
 /**
+  * @brief TIM1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM1_Init(void)
+{
+
+  /* USER CODE BEGIN TIM1_Init 0 */
+
+  /* USER CODE END TIM1_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_SlaveConfigTypeDef sSlaveConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+  TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig = {0};
+
+  /* USER CODE BEGIN TIM1_Init 1 */
+
+  /* USER CODE END TIM1_Init 1 */
+  htim1.Instance = TIM1;
+  htim1.Init.Prescaler = 7200-1;
+  htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim1.Init.Period = 4999;
+  htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim1.Init.RepetitionCounter = 0;
+  htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
+  if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_OC_Init(&htim1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_OnePulse_Init(&htim1, TIM_OPMODE_SINGLE) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sSlaveConfig.SlaveMode = TIM_SLAVEMODE_DISABLE;
+  sSlaveConfig.InputTrigger = TIM_TS_ITR1;
+  if (HAL_TIM_SlaveConfigSynchro(&htim1, &sSlaveConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_UPDATE;
+  sMasterConfig.MasterOutputTrigger2 = TIM_TRGO2_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.Pulse = 0;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
+  sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
+  if (HAL_TIM_OC_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sBreakDeadTimeConfig.OffStateRunMode = TIM_OSSR_DISABLE;
+  sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+  sBreakDeadTimeConfig.LockLevel = TIM_LOCKLEVEL_OFF;
+  sBreakDeadTimeConfig.DeadTime = 0;
+  sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
+  sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
+  sBreakDeadTimeConfig.BreakFilter = 0;
+  sBreakDeadTimeConfig.Break2State = TIM_BREAK2_DISABLE;
+  sBreakDeadTimeConfig.Break2Polarity = TIM_BREAK2POLARITY_HIGH;
+  sBreakDeadTimeConfig.Break2Filter = 0;
+  sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
+  if (HAL_TIMEx_ConfigBreakDeadTime(&htim1, &sBreakDeadTimeConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM1_Init 2 */
+
+  /* USER CODE END TIM1_Init 2 */
+  HAL_TIM_MspPostInit(&htim1);
+
+}
+
+/**
   * @brief TIM2 Initialization Function
   * @param None
   * @retval None
@@ -841,17 +987,28 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5|GPIO_PIN_6, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
+
   /*Configure GPIO pins : PA5 PA6 */
   GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : PC12 */
+  GPIO_InitStruct.Pin = GPIO_PIN_12;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 

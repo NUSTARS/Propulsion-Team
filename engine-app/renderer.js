@@ -164,7 +164,8 @@ let counter = 0;
 window.electronAPI.onSerialPacket((packet) => {
 	
 	for (let i = 0; i < num_graphs; i++) {
-		graphs[i].addPoint(counter, packet[i]);
+		value = graphs[i].interpFn(packet[i] + (packet[i+1] << 8)); //this may be backwards
+		graphs[i].addPoint(counter, value);
 	}
 	
 	counter += 1;

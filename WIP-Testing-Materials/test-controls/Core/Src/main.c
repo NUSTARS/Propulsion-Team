@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include <stdio.h>
+#include <stdbool.h>
 
 /* USER CODE END Includes */
 
@@ -127,6 +128,7 @@ void setAngle(uint32_t angle,uint32_t channel) {
 uint8_t input_data;
 uint8_t solenoid_state;
 uint8_t valve_state = 0x00;
+uint8_t sparkplug_state = 0x00;
 int num_servos = 2;
 //
 //
@@ -235,34 +237,102 @@ uint8_t control_ballvalves(uint8_t input_data, uint8_t valve_state){
 
 }
 
+bool first = true;
+
 void spark_plug_on(){
 	printf("Turning spark plug on\n");
 //	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_SET);
 //	HAL_TIM_OnePulse_Start_IT()
 //	HAL_TIM_Base_Start_IT(&htim1);
 
-	__HAL_TIM_SET_COUNTER(&htim1, 0);
+//
+//
+//	HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1);
 
-	    // 2. Clear any pending interrupts to avoid an immediate callback
-	__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
 
-	HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1);
+
+
+	if (first){
+
+		__HAL_TIM_SET_COUNTER(&htim1, 0);
+		//
+		//	    // 2. Clear any pending interrupts to avoid an immediate callback
+		__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
+		HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1);
+
+		first = false;
+
+
+
+	}
+	else{
+
+		__HAL_TIM_SET_COUNTER(&htim1, 0);
+				//
+				//	    // 2. Clear any pending interrupts to avoid an immediate callback
+		__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
+
+	    __HAL_TIM_ENABLE(&htim1);
+
+	}
+//
+//
+
+
+//	// 1. Force HAL to forget it was busy
+//	    htim1.State = HAL_TIM_STATE_READY;
+//
+//	    // 2. Disable the timer momentarily to reset logic
+//	    __HAL_TIM_DISABLE(&htim1);
+//
+//	    // 3. Clear ALL flags (Update, Capture/Compare, Trigger)
+//	    htim1.Instance->SR = 0;
+//
+//	    // 4. Reset the counter and the Repetition Counter (TIM1 specific)
+//	    __HAL_TIM_SET_COUNTER(&htim1, 0);
+//	    htim1.Instance->RCR = 0;
+//
+//	    // 5. Generate an Update Event to load all shadow registers
+//	    htim1.Instance->EGR = TIM_EGR_UG;
+//
+//	    // 6. Start it again
+
+
+
+//	    if (HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1) != HAL_OK) {
+//	        printf("Error restarting TIM1\n");
+//	    }
 }
 
 void spark_plug_off(){
 	printf("Turning spark plug off\n");
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
-	HAL_TIM_Base_Stop_IT(&htim1);
+
+	sparkplug_state = 0x0;
+	//HAL_TIM_Base_Stop_IT(&htim1);
+
+	//HAL_TIM_OnePulse_Stop_IT(&htim1, TIM_CHANNEL_1);
+	//htim1.State = HAL_TIM_STATE_READY;
+    // 2. Clear any pending interrupts to avoid an immediate callback
+
+
 }
 
 
 
 void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
+	__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
+
 	printf("Reached timer callback");
 	if (htim->Instance == TIM1)
 		  {
+		//HAL_TIM_OnePulse_Stop_IT(htim, TIM_CHANNEL_1);
+
+		//htim->State = HAL_TIM_STATE_READY;
 			spark_plug_off();
 		  }
+
+
 
 }
 //void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
@@ -298,13 +368,18 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     	//valve_state = input_data;
 
         valve_state = control_ballvalves(ball_valve_data, valve_state);
+
+        printf("%x\n", input_data >> 4);
+
+        if ((input_data >> 4 )& 0x1 & !sparkplug_state){
+        	sparkplug_state = 0x1;
+               	spark_plug_on();
+              }
         HAL_UART_Receive_IT(&huart4, &input_data, 1);
 
         // spark plug - on 0.5 s timer & GPIO pin
 
-        if (input_data >> 5){
-        	spark_plug_on();
-        }
+
 
 
 
@@ -710,9 +785,9 @@ static void MX_TIM1_Init(void)
 
   /* USER CODE END TIM1_Init 1 */
   htim1.Instance = TIM1;
-  htim1.Init.Prescaler = 7200-1;
+  htim1.Init.Prescaler = 1024;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 4999;
+  htim1.Init.Period = 31250;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
@@ -746,7 +821,7 @@ static void MX_TIM1_Init(void)
   {
     Error_Handler();
   }
-  sConfigOC.OCMode = TIM_OCMODE_TIMING;
+  sConfigOC.OCMode = TIM_OCMODE_RETRIGERRABLE_OPM1;
   sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;

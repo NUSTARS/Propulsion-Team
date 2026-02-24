@@ -1,0 +1,6 @@
+2026-01-13 10:38:00,970 [INFO] WebApp:194 - Connection lost
+2026-01-13 10:38:05,195 [INFO] WebApp:191 - Connection restablished
+2026-01-13 10:57:52,571 [INFO] WebApp:194 - Connection lost
+2026-01-13 10:57:56,114 [INFO] WebApp:191 - Connection restablished
+2026-01-13 11:42:59,843 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 785894040 Bytes (1073741824)
+2026-01-13 11:43:01,427 [ERROR] IocParser:95 - Exception caught: Cannot invoke "java.lang.CharSequence.length()" because "this.text" is null

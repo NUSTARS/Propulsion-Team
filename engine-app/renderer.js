@@ -5,10 +5,9 @@
 
 // constant holding the division where the canvases are stored
 const canvasDiv = document.getElementById('canvas-division');
-canvasDiv.style.height = '400px';
+canvasDiv.style.height = '200px';
 
 const switchDiv = document.getElementById('switch-division');
-switchDiv.id = "switchDiv";
 
 // SensorGraph class
 class SensorGraph {

@@ -91,7 +91,7 @@ ipcMain.on('control-byte', (_event, controlByte) => {
 
 
 function startLogging(csvPath) {
-	parser = sp.pipe(new ByteLengthParser({length: 2}));
+	parser = sp.pipe(new ByteLengthParser({length: 10}));
 	sp.open(() => {sp.flush()}); //
 	
 	// TODO write top row of CSV

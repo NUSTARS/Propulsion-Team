@@ -30,7 +30,9 @@ class SensorGraph {
 		thisDiv.style.height = '200px';
 		canvasDiv.appendChild(thisDiv);
 		this.canvas = document.createElement('canvas');
+		this.currentData = document.createElement('p');
 		thisDiv.appendChild(this.canvas);
+		thisDiv.appendChild(this.currentData);
 		this.chart = new Chart(
 			this.canvas,
 			{
@@ -62,6 +64,7 @@ class SensorGraph {
 		this.dataPoints.datasets[0].data.push(this.interpFn(y));
 		this.dataPoints.datasets[0].data = this.dataPoints.datasets[0].data.slice(-50);
 		this.chart.data = this.dataPoints;
+		this.currentData.textContent = y.toString();
 		// perhaps remove this and put it in a callback?
 		this.chart.update();
 	}
@@ -144,7 +147,7 @@ function makePTInterpFn(resistance) {
 
 // (3.3/4095 * x) * 18.75 - 75
 // some constants (temporary)
-const num_graphs = 1;
+const num_graphs = 5;
 let graphs = [];
 for (let i = 0; i < num_graphs; i++) {
 	graphs.push(new SensorGraph(i.toString(), (x) => 2*x));

@@ -61,8 +61,8 @@ all: main-build
 main-build: nucleo-h753zi-rs485-rx.elf secondary-outputs
 
 # Tool invocations
-nucleo-h753zi-rs485-rx.elf nucleo-h753zi-rs485-rx.map: $(OBJS) $(USER_OBJS) C:\Users\omara\STM32CubeIDE\workspace_1.18.1\nucleo-h753zi-rs485-rx\STM32H753ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "nucleo-h753zi-rs485-rx.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\omara\STM32CubeIDE\workspace_1.18.1\nucleo-h753zi-rs485-rx\STM32H753ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="nucleo-h753zi-rs485-rx.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+nucleo-h753zi-rs485-rx.elf nucleo-h753zi-rs485-rx.map: $(OBJS) $(USER_OBJS) C:\Users\omara\OneDrive\Documents\GitHub\Propulsion-Team\nucleo-h753zi-rs485-rx\STM32H753ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "nucleo-h753zi-rs485-rx.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\omara\OneDrive\Documents\GitHub\Propulsion-Team\nucleo-h753zi-rs485-rx\STM32H753ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="nucleo-h753zi-rs485-rx.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

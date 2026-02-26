@@ -91,32 +91,34 @@ ipcMain.on('control-byte', (_event, controlByte) => {
 
 
 function startLogging(csvPath) {
-	parser = sp.pipe(new ByteLengthParser({length: 6}));
+	parser = sp.pipe(new ByteLengthParser({length: 10}));
 	sp.open(() => {sp.flush()}); //
 	
 	// TODO write top row of CSV
 
 	parser.on('data', (chunk) => {
-		//console.log(chunk);
+		console.log(chunk);
 		// TODO: set up system of parsing serial packets
 		
 		// send chunk
 		mainWindow.webContents.send('serial-packet', chunk);
 		
-		// 
-
-		let csvline = '';
-		for (const val of chunk) {
-			if (csvline == '') {
-				csvline = csvline + String(val);
+		// only log if we have an actual title
+		if (csvPath != '.csv') {
+			let csvline = '';
+			for (const val of chunk) {
+				if (csvline == '') {
+					csvline = csvline + String(val);
+				}
+				else {
+					csvline = csvline + ', ' + String(val)
+				}
 			}
-			else {
-				csvline = csvline + ', ' + String(val)
-			}
+			csvline = csvline + '\n';
+			
+			fs.appendFile(csvPath, csvline, (err) => {});
 		}
-		csvline = csvline + '\n';
 		
-		fs.appendFile(csvPath, csvline, (err) => {});
 		/*
 		for (const value of chunk) {
 			

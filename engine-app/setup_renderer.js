@@ -54,8 +54,8 @@ function initEngineCommunication() {
 	// send serial port path
 	electronAPI.sendSerialPath(path);
 	
-	// send message to load new page
-	electronAPI.sendLoadMain(csvPathTextInput.value);
+	// send message to load new page, including csv path
+	electronAPI.sendLoadMain(csvPathTextInput.value + '.csv');
 }
 
 initEngineCommsButton.addEventListener("click", initEngineCommunication);
@@ -64,6 +64,30 @@ setup_main();
 
 // Defining format of configuration message
 //
+
+/*
+	Notes: 
+	- dictionary mapping between 
+*/
+/* 
+{
+	"binary-actuators": [
+		{
+			"name": "fuel servo",
+			"byte": 0,
+			"bit": 0
+		},
+	],
+	"sensors": [
+		{
+			"name": "pt-1"
+			"start-index": 0
+			"num-bytes": 1
+		}
+	]
+	
+}
+*/
 
 
 

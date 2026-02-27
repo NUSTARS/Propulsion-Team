@@ -163,19 +163,19 @@ uint8_t control_solenoids(uint8_t input_data, uint8_t solenoid_state){
 
 	if ((input_data & 0x1) != (solenoid_state & 0x1)){
 		if (input_data & 0x1){
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
 		}
 		else{
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
 		}
 
 	}
 	if ((input_data & 0x2) != (solenoid_state & 0x2)){
 		if (input_data & 0x2){
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
 		}
 		else{
-			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_RESET);
+			HAL_GPIO_WritePin(GPIOC, GPIO_PIN_9, GPIO_PIN_SET);
 		}
 	}
 	return input_data;
@@ -456,12 +456,13 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-
+  uint16_t data[5] = {0,1,2,3,4};
   while (1)
   {
 	 //printf("Hi\n");
 	 HAL_Delay(1000);
-	 get_pressure_data();
+	 //get_pressure_data();
+	 send_data((uint8_t*)data, 5*sizeof(uint16_t));
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -1027,7 +1028,10 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8|GPIO_PIN_9|GPIO_PIN_12, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8|GPIO_PIN_9, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : PC8 PC9 */
   GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;

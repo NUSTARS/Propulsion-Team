@@ -149,7 +149,7 @@ function makePTInterpFn(resistance) {
 const num_graphs = 5;
 let graphs = [];
 for (let i = 0; i < num_graphs; i++) {
-	graphs.push(new SensorGraph(i.toString(), (x) => 2*x));
+	graphs.push(new SensorGraph(i.toString(), (x) => x & 0xFF));
 }
 
 solenoid1 = new BinaryActuator("Solenoid 1:", 0, 0)

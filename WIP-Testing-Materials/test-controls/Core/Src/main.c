@@ -120,7 +120,7 @@ void setAngle(uint32_t angle,uint32_t channel) {
     uint32_t minPulseWidth = 500;
     uint32_t maxPulseWidth = 2500;
     uint32_t pulse = ((angle * (maxPulseWidth - minPulseWidth)) / 270) + minPulseWidth;
-    __HAL_TIM_SET_COMPARE(&htim1, channel, pulse);
+    __HAL_TIM_SET_COMPARE(&htim2, channel, pulse);
 }
 
 uint8_t input_data;
@@ -184,18 +184,18 @@ uint8_t control_solenoids(uint8_t input_data, uint8_t solenoid_state){
 void close_servo(uint8_t servo_num){
 	if (servo_num == 0){
 		printf("closing servo num 0\n");
-		setAngle(0, TIM_CHANNEL_1);
+		setAngle(0, TIM_CHANNEL_3);
 	} else if (servo_num == 1){
-		setAngle(0, TIM_CHANNEL_2);
+		setAngle(0, TIM_CHANNEL_4);
 	}
 
 }
 void open_servo(uint8_t servo_num){
 	if (servo_num == 0){
 		printf("opening servo num 0\n");
-		setAngle(90, TIM_CHANNEL_1);
+		setAngle(90, TIM_CHANNEL_3);
 	} else if (servo_num == 1){
-		setAngle(90, TIM_CHANNEL_2);
+		setAngle(90, TIM_CHANNEL_4);
 	}
 }
 
@@ -440,8 +440,8 @@ int main(void)
   MX_USART2_UART_Init();
   MX_ADC2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
   HAL_TIM_Base_Start_IT(&htim1);
 
 
@@ -806,10 +806,6 @@ static void MX_TIM1_Init(void)
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
-  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
   if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
@@ -884,7 +880,11 @@ static void MX_TIM2_Init(void)
   sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
   }

@@ -17,7 +17,7 @@
 ../Core/Src/main.c:631:13:MX_ADC2_Init	40	static
 ../Core/Src/main.c:691:13:MX_ADC3_Init	40	static
 ../Core/Src/main.c:760:13:MX_TIM1_Init	112	static
-../Core/Src/main.c:844:13:MX_TIM2_Init	64	static
+../Core/Src/main.c:840:13:MX_TIM2_Init	64	static
 ../Core/Src/main.c:903:13:MX_USART2_UART_Init	8	static
 ../Core/Src/main.c:951:13:MX_USART3_UART_Init	8	static
 ../Core/Src/main.c:997:13:MX_BDMA_Init	16	static

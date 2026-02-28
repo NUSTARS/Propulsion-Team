@@ -51,7 +51,8 @@ typedef union {
 ADC_res pressure_transducer_outputs;
 
 const int ADC_ARRAY_1 = 1;
-const int ADC_ARRAY_2 = 2;
+const int ADC_ARRAY_2 = 1;
+const int ADC_ARRAY_3 = 3;
 
 /* USER CODE END PD */
 
@@ -120,7 +121,7 @@ void setAngle(uint32_t angle,uint32_t channel) {
     uint32_t minPulseWidth = 500;
     uint32_t maxPulseWidth = 2500;
     uint32_t pulse = ((angle * (maxPulseWidth - minPulseWidth)) / 270) + minPulseWidth;
-    __HAL_TIM_SET_COMPARE(&htim1, channel, pulse);
+    __HAL_TIM_SET_COMPARE(&htim2, channel, pulse);
 }
 
 uint8_t input_data;
@@ -131,13 +132,35 @@ int num_servos = 2;
 //
 //
 void send_data(uint8_t* buffer, int size){
-	HAL_UART_Transmit_DMA(&huart2, buffer, size);
+//	printf("in send_data\n");
+//
+//	for (int i = 0; i < 10; i ++){
+//		printf("data to send: %x\n", buffer[i]);
+//	}
+
+	uint8_t start_val = 0xaa;
+	uint8_t start_val2 = 0xa;
+
+	HAL_UART_Transmit(&huart2, &start_val, 1, HAL_MAX_DELAY);
+	HAL_UART_Transmit(&huart2, &start_val2, 1, HAL_MAX_DELAY);
+
+	HAL_UART_Transmit_IT(&huart2, buffer, 10);
+
+	//HAL_UART_Transmit(&huart3, buffer, 10);
+
+
+
+	//HAL_UART_Transmit_DMA(&huart2, buffer, size);
 
 }
 //
 //
 //
+
+
+
 void get_pressure_data(){
+	printf("in get pressure data\n");
 
 	uint16_t adc_values1[ADC_ARRAY_1];
 	uint16_t adc_values2[ADC_ARRAY_2];
@@ -150,13 +173,27 @@ void get_pressure_data(){
 
 	pressure_transducer_outputs.values.res1 = adc_values1[0];
 	pressure_transducer_outputs.values.res2 = adc_values2[0];
-	pressure_transducer_outputs.values.res3 = adc_values2[1];
-	pressure_transducer_outputs.values.res4 = adc_values3[0];
-	pressure_transducer_outputs.values.res5 = adc_values3[1];
+	pressure_transducer_outputs.values.res3 = adc_values3[0];
+	pressure_transducer_outputs.values.res4 = adc_values3[1];
+	pressure_transducer_outputs.values.res5 = adc_values3[2];
+
+
+//	for (int i = 0; i < 10; i ++){
+//		pressure_transducer_outputs.bytes_data[i] = i;
+//		printf("%x\n", pressure_transducer_outputs.bytes_data[i]);
+//	}
+
 
 	//ADC bit resolution - 12 bits
 
-	send_data((uint8_t*) pressure_transducer_outputs.bytes_data, 5);
+	send_data(pressure_transducer_outputs.bytes_data, 10);
+}
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
+	printf("in uart tx callback\n");
+    if (huart->Instance == USART2) {
+        get_pressure_data(); // Mark transmission complete
+    }
 }
 
 uint8_t control_solenoids(uint8_t input_data, uint8_t solenoid_state){
@@ -184,18 +221,18 @@ uint8_t control_solenoids(uint8_t input_data, uint8_t solenoid_state){
 void close_servo(uint8_t servo_num){
 	if (servo_num == 0){
 		printf("closing servo num 0\n");
-		setAngle(0, TIM_CHANNEL_1);
+		setAngle(0, TIM_CHANNEL_3);
 	} else if (servo_num == 1){
-		setAngle(0, TIM_CHANNEL_2);
+		setAngle(0, TIM_CHANNEL_4);
 	}
 
 }
 void open_servo(uint8_t servo_num){
 	if (servo_num == 0){
 		printf("opening servo num 0\n");
-		setAngle(90, TIM_CHANNEL_1);
+		setAngle(90, TIM_CHANNEL_3);
 	} else if (servo_num == 1){
-		setAngle(90, TIM_CHANNEL_2);
+		setAngle(90, TIM_CHANNEL_4);
 	}
 }
 
@@ -245,6 +282,7 @@ void spark_plug_on(){
 //	HAL_TIM_Base_Start_IT(&htim1);
 
 //
+
 //
 //	HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1);
 
@@ -328,6 +366,8 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
 		//htim->State = HAL_TIM_STATE_READY;
 			spark_plug_off();
 		  }
+
+
 
 
 
@@ -440,8 +480,8 @@ int main(void)
   MX_USART2_UART_Init();
   MX_ADC2_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
   HAL_TIM_Base_Start_IT(&htim1);
 
 
@@ -450,19 +490,32 @@ int main(void)
 
   HAL_UART_Receive_IT(&huart2, &input_data, 1);
 
+  printf("First get pressure data\n");
+
+  get_pressure_data();
+
+
 
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint16_t data[5] = {0,1,2,3,4};
+  //uint16_t data[5] = {0,1,2,3,4};
   while (1)
   {
 	 //printf("Hi\n");
-	 HAL_Delay(1000);
-	 //get_pressure_data();
-	 send_data((uint8_t*)data, 5*sizeof(uint16_t));
+	 HAL_Delay(5000);
+
+//	 uint8_t new_buffer[10];
+//
+//	 for (int i = 0; i < 10; i++){
+//		 new_buffer[i] = 0x5;
+//	 }
+//
+//	HAL_UART_Transmit(&huart2, new_buffer, 10, 100);
+
+	 //send_data((uint8_t*)data, 5*sizeof(uint16_t));
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -806,10 +859,6 @@ static void MX_TIM1_Init(void)
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
   sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
   sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
-  if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
-  {
-    Error_Handler();
-  }
   if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_2) != HAL_OK)
   {
     Error_Handler();
@@ -884,7 +933,11 @@ static void MX_TIM2_Init(void)
   sConfigOC.Pulse = 0;
   sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
   sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
   {
     Error_Handler();
   }
@@ -1020,11 +1073,12 @@ static void MX_GPIO_Init(void)
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */

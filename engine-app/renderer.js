@@ -141,7 +141,7 @@ class BinaryActuator {
 // in ohms as an input to the function
 function makePTInterpFn(resistance) {
 	// in omar we trust :)
-	return (x) => (((3300/4095)/resistance) * x * 18.75) - 75
+	return (x) => (((3300/4095)/resistance) * x/50 * 18.75) - 75
 }
 
 // (3.3/4095 * x) * 18.75 - 75
@@ -149,14 +149,14 @@ function makePTInterpFn(resistance) {
 const num_graphs = 5;
 let graphs = [];
 for (let i = 0; i < num_graphs; i++) {
-	graphs.push(new SensorGraph(i.toString(), (x) => x & 0xFF));
+	graphs.push(new SensorGraph(i.toString(), (x) => x/*makePTInterpFn(1)*/));
 }
 
-solenoid1 = new BinaryActuator("Solenoid 1:", 0, 0)
-solenoid2 = new BinaryActuator("Solenoid 2:", 0, 1)
-servo1 = new BinaryActuator("Servo Ball Valve 1:", 0, 2)
-servo2 = new BinaryActuator("Servo Ball Valve 2:", 0, 3)
-sparkPlug = new BinaryActuator("Sparkplug:", 0, 4)
+solenoid1 = new BinaryActuator("Ox Solenoid:", 0, 0)
+solenoid2 = new BinaryActuator("Ethanol Solenoid:", 0, 1)
+servo1 = new BinaryActuator("Nitrogen Purge:", 0, 2)
+servo2 = new BinaryActuator("Nitrogen In:", 0, 3)
+sparkPlug = new BinaryActuator("Spark Plug:", 0, 4)
 
 
 
@@ -167,7 +167,7 @@ let counter = 0;
 window.electronAPI.onSerialPacket((packet) => {
 	
 	for (let i = 0; i < num_graphs; i++) {
-		value = graphs[i].interpFn(packet[i] + (packet[i+1] << 8)); //this may be backwards
+		value = graphs[i].interpFn(packet[2*i] + ((packet[2*i+1]) << 8)); //this may be backwards
 		graphs[i].addPoint(counter, value);
 	}
 	

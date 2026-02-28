@@ -8,6 +8,7 @@ const path = require('node:path')
 const fs = require('node:fs')
 const { SerialPort } = require('serialport')
 const { ByteLengthParser } = require('@serialport/parser-byte-length')
+const { PacketLengthParser } = require('@serialport/parser-packet-length')
 
 // singleton main BrowserWindow object
 let mainWindow;
@@ -57,7 +58,7 @@ let parser;
 // initialize, but do not start serial port
 ipcMain.on('serial-path', (_event, path) => {
 	if (path !== 'none' && !sp) {
-		sp = new SerialPort({path: path, baudRate: 9600, autoOpen: false});
+		sp = new SerialPort({path: path, baudRate: 9600, autoOpen: false, dataBits: 8, parityBits: 'none', stopBits: 1});
 	}
 	else {
 		// error
@@ -91,12 +92,15 @@ ipcMain.on('control-byte', (_event, controlByte) => {
 
 
 function startLogging(csvPath) {
-	parser = sp.pipe(new ByteLengthParser({length: 10}));
+	//
+	//new ByteLengthParser({length: 11})
+	parser = sp.pipe(new PacketLengthParser({delimeter: 0xAA, packetOverhead: 2}));
 	sp.open(() => {sp.flush()}); //
 	
 	// TODO write top row of CSV
 
 	parser.on('data', (chunk) => {
+		chunk = chunk.slice(2);
 		console.log(chunk);
 		// TODO: set up system of parsing serial packets
 		

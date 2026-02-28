@@ -1,4 +1,4 @@
-18:37:06 **** Incremental Build of configuration Debug for project test-controls ****
+21:13:14 **** Incremental Build of configuration Debug for project test-controls ****
 make -j7 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H753xx -c -I../Core/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 arm-none-eabi-gcc -o "test-controls.elf" @"objects.list"   -mcpu=cortex-m7 -T"/Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/STM32H753ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test-controls.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -7,11 +7,11 @@ Finished building target: test-controls.elf
 arm-none-eabi-size  test-controls.elf 
 arm-none-eabi-objdump -h -S test-controls.elf  > "test-controls.list"
    text	   data	    bss	    dec	    hex	filename
-  63788	    116	   2916	  66820	  10504	test-controls.elf
+  63548	    116	   2796	  66460	  1039c	test-controls.elf
 Finished building: default.size.stdout
  
 Finished building: test-controls.list
  
 
-18:37:07 Build Finished. 0 errors, 0 warnings. (took 956ms)
+21:13:15 Build Finished. 0 errors, 0 warnings. (took 951ms)
 

@@ -714,3 +714,583 @@
 2026-02-27 18:25:58,017 [INFO] ProjectBuilder:5496 - Time for Generating toolchain IDE Files: 4022mS.
 2026-02-27 18:25:58,170 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 43mS.
 2026-02-27 18:25:58,201 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 1mS.
+2026-02-27 19:34:37,214 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,0x0,invalid,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2026-02-27 19:34:45,006 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,014 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,015 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,715 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,718 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,719 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,719 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,720 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,720 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,721 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,721 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,722 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,723 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,723 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,724 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,724 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,724 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,725 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,725 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,725 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,726 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,727 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,728 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,730 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,730 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,730 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,730 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,731 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,731 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,731 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,732 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,732 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,733 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,733 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,733 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,733 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,733 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,734 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,734 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,734 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,734 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,735 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,735 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,736 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:45,876 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,877 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:45,878 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,589 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,601 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,610 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,610 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,612 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,612 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,614 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,616 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,621 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,622 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,623 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,623 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,624 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,626 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,627 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,627 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,628 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,628 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,632 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,633 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,634 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,634 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,634 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,634 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,634 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,635 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,635 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,635 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,635 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,636 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,636 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,636 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,636 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,636 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,636 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,637 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,637 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,637 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,637 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,637 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,637 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:54,796 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,797 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:54,797 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,295 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,336 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,368 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,374 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,376 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,377 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,377 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,378 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,379 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,379 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,380 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,380 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,380 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,380 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,381 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,381 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,382 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,382 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,383 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,383 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,383 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,383 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,383 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,383 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,383 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,383 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,384 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,384 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,384 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,384 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,385 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,387 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,388 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,390 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,391 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,391 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,391 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,391 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,394 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,395 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,416 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:55,770 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,770 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:55,771 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,708 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,709 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,709 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,709 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,710 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,710 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,710 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,710 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,710 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,710 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,711 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,711 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,711 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,711 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,711 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,711 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,712 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,712 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,712 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,712 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,712 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,712 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,712 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,713 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,713 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,713 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,713 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,713 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,713 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,714 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,714 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,714 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,714 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,714 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,714 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,714 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,714 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,714 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,714 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,715 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,715 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:56,853 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,854 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:56,854 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,340 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,350 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,355 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,355 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,356 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,356 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,356 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,356 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,356 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,356 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,357 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,357 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,357 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,357 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,357 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,357 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,358 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,358 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,359 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,361 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,362 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,362 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,362 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,362 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,363 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,363 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,363 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,363 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,363 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,363 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,363 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,363 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,364 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,364 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,364 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,364 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,364 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,364 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,364 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,364 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,364 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:34:57,714 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,716 [INFO] ADCParametersView:116 -                Rank 1 : false
+2026-02-27 19:34:57,716 [INFO] ADCParametersView:116 -                Rank 2 : false
+2026-02-27 19:37:13,767 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 898721480 Bytes (1073741824)
+2026-02-27 19:37:15,564 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 941118056 Bytes (1073741824)
+2026-02-27 19:37:17,619 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 879678304 Bytes (1073741824)
+2026-02-27 19:37:19,143 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: RCC
+2026-02-27 19:37:19,151 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: BDMA
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: USART
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: USART
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: MEMORYMAP
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8H7
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8H7
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: SYS
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: NVIC
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: CORTEX_M7
+2026-02-27 19:37:19,153 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: DMA
+2026-02-27 19:37:19,154 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: GPIO
+2026-02-27 19:37:19,155 [INFO] CodeGenerator:892 - code generatio: config db path: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_6.15.0.202507011659//db/
+2026-02-27 19:37:19,226 [INFO] Argument:325 - Argument : hdmavalue: null
+2026-02-27 19:37:19,227 [INFO] Argument:327 - 	 sub Args: 
+2026-02-27 19:37:19,227 [INFO] Argument:325 - Argument : Instancevalue: BDMA_Channel0
+2026-02-27 19:37:19,228 [INFO] Argument:335 - Argument : Instancevalue: BDMA_Channel0
+2026-02-27 19:37:19,228 [INFO] Argument:325 - Argument : Initvalue: null
+2026-02-27 19:37:19,228 [INFO] Argument:327 - 	 sub Args: 
+2026-02-27 19:37:19,228 [INFO] Argument:325 - Argument : Requestvalue: BDMA_REQUEST_ADC3
+2026-02-27 19:37:19,228 [INFO] Argument:335 - Argument : Requestvalue: BDMA_REQUEST_ADC3
+2026-02-27 19:37:19,228 [INFO] Argument:325 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : Modevalue: DMA_NORMAL
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : Modevalue: DMA_NORMAL
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : Lockvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : Lockvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : Statevalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : Statevalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : Parentvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : Parentvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : XferCpltCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : XferCpltCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : XferM1CpltCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : XferM1CpltCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : XferM1HalfCpltCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : XferM1HalfCpltCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : XferErrorCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : XferErrorCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : XferAbortCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : XferAbortCallbackvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : ErrorCodevalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : ErrorCodevalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : StreamBaseAddressvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : StreamBaseAddressvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:325 - Argument : StreamIndexvalue: null
+2026-02-27 19:37:19,229 [INFO] Argument:335 - Argument : StreamIndexvalue: null
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : hdmavalue: null
+2026-02-27 19:37:19,300 [INFO] Argument:327 - 	 sub Args: 
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : Instancevalue: DMA1_Stream0
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : Instancevalue: DMA1_Stream0
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : Initvalue: null
+2026-02-27 19:37:19,300 [INFO] Argument:327 - 	 sub Args: 
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : Requestvalue: DMA_REQUEST_USART2_TX
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : Requestvalue: DMA_REQUEST_USART2_TX
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : Directionvalue: DMA_MEMORY_TO_PERIPH
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : Directionvalue: DMA_MEMORY_TO_PERIPH
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_BYTE
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_BYTE
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_BYTE
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_BYTE
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : Modevalue: DMA_NORMAL
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : Modevalue: DMA_NORMAL
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : FIFOModevalue: DMA_FIFOMODE_DISABLE
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : FIFOModevalue: DMA_FIFOMODE_DISABLE
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : FIFOThresholdvalue: null
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : FIFOThresholdvalue: null
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : MemBurstvalue: null
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : MemBurstvalue: null
+2026-02-27 19:37:19,300 [INFO] Argument:325 - Argument : PeriphBurstvalue: null
+2026-02-27 19:37:19,300 [INFO] Argument:335 - Argument : PeriphBurstvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:325 - Argument : Lockvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:335 - Argument : Lockvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:325 - Argument : Statevalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:335 - Argument : Statevalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:325 - Argument : Parentvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:335 - Argument : Parentvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:325 - Argument : XferCpltCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:335 - Argument : XferCpltCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:325 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:335 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:325 - Argument : XferM1CpltCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:335 - Argument : XferM1CpltCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:325 - Argument : XferM1HalfCpltCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:335 - Argument : XferM1HalfCpltCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:325 - Argument : XferErrorCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:335 - Argument : XferErrorCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:325 - Argument : XferAbortCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:335 - Argument : XferAbortCallbackvalue: null
+2026-02-27 19:37:19,301 [INFO] Argument:325 - Argument : ErrorCodevalue: null
+2026-02-27 19:37:19,302 [INFO] Argument:335 - Argument : ErrorCodevalue: null
+2026-02-27 19:37:19,303 [INFO] Argument:325 - Argument : StreamBaseAddressvalue: null
+2026-02-27 19:37:19,304 [INFO] Argument:335 - Argument : StreamBaseAddressvalue: null
+2026-02-27 19:37:19,304 [INFO] Argument:325 - Argument : StreamIndexvalue: null
+2026-02-27 19:37:19,305 [INFO] Argument:335 - Argument : StreamIndexvalue: null
+2026-02-27 19:37:19,412 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/license.tmp_save
+2026-02-27 19:37:19,781 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/license.tmp
+2026-02-27 19:37:19,886 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/gpio.tmp_save
+2026-02-27 19:37:20,124 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/gpio.tmp
+2026-02-27 19:37:20,407 [WARN] IPConfigManager:103 - WARNING: Missing Config File for MEMORYMAP ip!!
+2026-02-27 19:37:21,156 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma.tmp_save
+2026-02-27 19:37:21,450 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma.tmp
+2026-02-27 19:37:21,462 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma_GV.tmp_save
+2026-02-27 19:37:21,533 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma_GV.tmp
+2026-02-27 19:37:21,538 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/cortex.tmp_save
+2026-02-27 19:37:21,640 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/cortex.tmp
+2026-02-27 19:37:21,671 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/dma.tmp_save
+2026-02-27 19:37:21,736 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/dma.tmp
+2026-02-27 19:37:21,738 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/dma_GV.tmp_save
+2026-02-27 19:37:21,809 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/dma_GV.tmp
+2026-02-27 19:37:21,838 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_it.c_save
+2026-02-27 19:37:22,012 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_it.c
+2026-02-27 19:37:22,015 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_it.h_save
+2026-02-27 19:37:22,067 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_it.h
+2026-02-27 19:37:22,163 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_hal_msp.c_save
+2026-02-27 19:37:22,386 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_hal_msp.c
+2026-02-27 19:37:22,389 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/system.tmp_save
+2026-02-27 19:37:22,440 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/system.tmp
+2026-02-27 19:37:22,451 [INFO] CodeEngine:321 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_hal_conf.h_save
+2026-02-27 19:37:22,508 [INFO] CodeEngine:345 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_hal_conf.h
+2026-02-27 19:37:22,557 [WARN] IPConfigManager:3811 - IP not found : TIM
+2026-02-27 19:37:22,557 [WARN] CodeGenerator:4259 - IP not found : null
+2026-02-27 19:37:22,563 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/main.h_save
+2026-02-27 19:37:22,679 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/main.h
+2026-02-27 19:37:22,681 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/main.c_save
+2026-02-27 19:37:22,838 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/main.c
+2026-02-27 19:37:23,759 [INFO] ProjectBuilder:3606 - Time for Copy HAL[1] : 118mS.
+2026-02-27 19:37:23,783 [INFO] ProjectBuilder:5216 - Project Generator version: 4.7.0-B52
+2026-02-27 19:37:23,924 [INFO] ConfigFileManager:1595 - The Die is : DIE450
+2026-02-27 19:37:28,238 [INFO] ProjectBuilder:5496 - Time for Generating toolchain IDE Files: 4442mS.
+2026-02-27 19:37:28,257 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 3mS.
+2026-02-27 19:37:28,264 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 0mS.
+2026-02-27 19:52:18,483 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 898601800 Bytes (1073741824)
+2026-02-27 19:52:20,192 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 940580504 Bytes (1073741824)
+2026-02-27 19:52:22,978 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 829548032 Bytes (1073741824)
+2026-02-27 19:52:23,603 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: RCC
+2026-02-27 19:52:23,604 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: BDMA
+2026-02-27 19:52:23,605 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: USART
+2026-02-27 19:52:23,605 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: USART
+2026-02-27 19:52:23,605 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: MEMORYMAP
+2026-02-27 19:52:23,605 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8H7
+2026-02-27 19:52:23,605 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8H7
+2026-02-27 19:52:23,605 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-27 19:52:23,606 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: SYS
+2026-02-27 19:52:23,606 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-27 19:52:23,607 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-27 19:52:23,607 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: NVIC
+2026-02-27 19:52:23,607 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: CORTEX_M7
+2026-02-27 19:52:23,607 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: GPIO
+2026-02-27 19:52:23,608 [INFO] CodeGenerator:892 - code generatio: config db path: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_6.15.0.202507011659//db/
+2026-02-27 19:52:23,648 [INFO] Argument:325 - Argument : hdmavalue: null
+2026-02-27 19:52:23,648 [INFO] Argument:327 - 	 sub Args: 
+2026-02-27 19:52:23,648 [INFO] Argument:325 - Argument : Instancevalue: BDMA_Channel0
+2026-02-27 19:52:23,649 [INFO] Argument:335 - Argument : Instancevalue: BDMA_Channel0
+2026-02-27 19:52:23,649 [INFO] Argument:325 - Argument : Initvalue: null
+2026-02-27 19:52:23,649 [INFO] Argument:327 - 	 sub Args: 
+2026-02-27 19:52:23,649 [INFO] Argument:325 - Argument : Requestvalue: BDMA_REQUEST_ADC3
+2026-02-27 19:52:23,649 [INFO] Argument:335 - Argument : Requestvalue: BDMA_REQUEST_ADC3
+2026-02-27 19:52:23,649 [INFO] Argument:325 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-27 19:52:23,649 [INFO] Argument:335 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-27 19:52:23,649 [INFO] Argument:325 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-27 19:52:23,650 [INFO] Argument:335 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-27 19:52:23,650 [INFO] Argument:325 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-27 19:52:23,650 [INFO] Argument:335 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-27 19:52:23,650 [INFO] Argument:325 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-27 19:52:23,650 [INFO] Argument:335 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-27 19:52:23,650 [INFO] Argument:325 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-27 19:52:23,650 [INFO] Argument:335 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-27 19:52:23,650 [INFO] Argument:325 - Argument : Modevalue: DMA_NORMAL
+2026-02-27 19:52:23,650 [INFO] Argument:335 - Argument : Modevalue: DMA_NORMAL
+2026-02-27 19:52:23,650 [INFO] Argument:325 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-27 19:52:23,650 [INFO] Argument:335 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-27 19:52:23,650 [INFO] Argument:325 - Argument : Lockvalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:335 - Argument : Lockvalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:325 - Argument : Statevalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:335 - Argument : Statevalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:325 - Argument : Parentvalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:335 - Argument : Parentvalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:325 - Argument : XferCpltCallbackvalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:335 - Argument : XferCpltCallbackvalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:325 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:335 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:325 - Argument : XferM1CpltCallbackvalue: null
+2026-02-27 19:52:23,651 [INFO] Argument:335 - Argument : XferM1CpltCallbackvalue: null
+2026-02-27 19:52:23,652 [INFO] Argument:325 - Argument : XferM1HalfCpltCallbackvalue: null
+2026-02-27 19:52:23,652 [INFO] Argument:335 - Argument : XferM1HalfCpltCallbackvalue: null
+2026-02-27 19:52:23,652 [INFO] Argument:325 - Argument : XferErrorCallbackvalue: null
+2026-02-27 19:52:23,652 [INFO] Argument:335 - Argument : XferErrorCallbackvalue: null
+2026-02-27 19:52:23,653 [INFO] Argument:325 - Argument : XferAbortCallbackvalue: null
+2026-02-27 19:52:23,653 [INFO] Argument:335 - Argument : XferAbortCallbackvalue: null
+2026-02-27 19:52:23,653 [INFO] Argument:325 - Argument : ErrorCodevalue: null
+2026-02-27 19:52:23,653 [INFO] Argument:335 - Argument : ErrorCodevalue: null
+2026-02-27 19:52:23,653 [INFO] Argument:325 - Argument : StreamBaseAddressvalue: null
+2026-02-27 19:52:23,653 [INFO] Argument:335 - Argument : StreamBaseAddressvalue: null
+2026-02-27 19:52:23,653 [INFO] Argument:325 - Argument : StreamIndexvalue: null
+2026-02-27 19:52:23,653 [INFO] Argument:335 - Argument : StreamIndexvalue: null
+2026-02-27 19:52:23,972 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/license.tmp_save
+2026-02-27 19:52:24,577 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/license.tmp
+2026-02-27 19:52:24,749 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/gpio.tmp_save
+2026-02-27 19:52:24,950 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/gpio.tmp
+2026-02-27 19:52:25,269 [WARN] IPConfigManager:103 - WARNING: Missing Config File for MEMORYMAP ip!!
+2026-02-27 19:52:25,658 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma.tmp_save
+2026-02-27 19:52:25,774 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma.tmp
+2026-02-27 19:52:25,778 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma_GV.tmp_save
+2026-02-27 19:52:25,849 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma_GV.tmp
+2026-02-27 19:52:25,853 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/cortex.tmp_save
+2026-02-27 19:52:25,973 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/cortex.tmp
+2026-02-27 19:52:25,992 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_it.c_save
+2026-02-27 19:52:26,364 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_it.c
+2026-02-27 19:52:26,395 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_it.h_save
+2026-02-27 19:52:26,805 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_it.h
+2026-02-27 19:52:27,010 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_hal_msp.c_save
+2026-02-27 19:52:27,276 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_hal_msp.c
+2026-02-27 19:52:27,281 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/system.tmp_save
+2026-02-27 19:52:27,347 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/system.tmp
+2026-02-27 19:52:27,366 [INFO] CodeEngine:321 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_hal_conf.h_save
+2026-02-27 19:52:27,429 [INFO] CodeEngine:345 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_hal_conf.h
+2026-02-27 19:52:27,490 [WARN] IPConfigManager:3811 - IP not found : TIM
+2026-02-27 19:52:27,490 [WARN] CodeGenerator:4259 - IP not found : null
+2026-02-27 19:52:27,505 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/main.h_save
+2026-02-27 19:52:27,626 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/main.h
+2026-02-27 19:52:27,629 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/main.c_save
+2026-02-27 19:52:27,790 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/main.c
+2026-02-27 19:52:28,171 [INFO] ProjectBuilder:3606 - Time for Copy HAL[1] : 110mS.
+2026-02-27 19:52:28,177 [INFO] ProjectBuilder:5216 - Project Generator version: 4.7.0-B52
+2026-02-27 19:52:28,257 [INFO] ConfigFileManager:1595 - The Die is : DIE450
+2026-02-27 19:52:31,539 [INFO] ProjectBuilder:5496 - Time for Generating toolchain IDE Files: 3353mS.
+2026-02-27 19:52:31,546 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 1mS.
+2026-02-27 19:52:31,549 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 0mS.
+2026-02-27 19:55:08,951 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,536x200,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2026-02-27 19:59:34,986 [INFO] Gpio:278 - dependency for GPIO [ADC1, ADC2, ADC3, RCC, TIM1, TIM2, USART2, USART3]
+2026-02-27 20:00:11,104 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 840592600 Bytes (1073741824)
+2026-02-27 20:00:13,019 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 881074168 Bytes (1073741824)
+2026-02-27 20:00:13,387 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 921968632 Bytes (1073741824)
+2026-02-27 20:00:14,772 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: RCC
+2026-02-27 20:00:14,777 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: BDMA
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: USART
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: USART
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: MEMORYMAP
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8H7
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: TIM1_8H7
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: SYS
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: ADC
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: NVIC
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: CORTEX_M7
+2026-02-27 20:00:14,778 [INFO] BlockDiagram:2775 - set Specific Code input for plugin: GPIO
+2026-02-27 20:00:14,780 [INFO] CodeGenerator:892 - code generatio: config db path: /Applications/STM32CubeIDE.app/Contents/Eclipse/plugins/com.st.stm32cube.common.mx_6.15.0.202507011659//db/
+2026-02-27 20:00:14,835 [INFO] Argument:325 - Argument : hdmavalue: null
+2026-02-27 20:00:14,835 [INFO] Argument:327 - 	 sub Args: 
+2026-02-27 20:00:14,835 [INFO] Argument:325 - Argument : Instancevalue: BDMA_Channel0
+2026-02-27 20:00:14,835 [INFO] Argument:335 - Argument : Instancevalue: BDMA_Channel0
+2026-02-27 20:00:14,835 [INFO] Argument:325 - Argument : Initvalue: null
+2026-02-27 20:00:14,835 [INFO] Argument:327 - 	 sub Args: 
+2026-02-27 20:00:14,835 [INFO] Argument:325 - Argument : Requestvalue: BDMA_REQUEST_ADC3
+2026-02-27 20:00:14,835 [INFO] Argument:335 - Argument : Requestvalue: BDMA_REQUEST_ADC3
+2026-02-27 20:00:14,835 [INFO] Argument:325 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-27 20:00:14,835 [INFO] Argument:335 - Argument : Directionvalue: DMA_PERIPH_TO_MEMORY
+2026-02-27 20:00:14,835 [INFO] Argument:325 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-27 20:00:14,835 [INFO] Argument:335 - Argument : PeriphIncvalue: DMA_PINC_DISABLE
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : MemIncvalue: DMA_MINC_ENABLE
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : PeriphDataAlignmentvalue: DMA_PDATAALIGN_HALFWORD
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : MemDataAlignmentvalue: DMA_MDATAALIGN_HALFWORD
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : Modevalue: DMA_NORMAL
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : Modevalue: DMA_NORMAL
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : Priorityvalue: DMA_PRIORITY_LOW
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : Lockvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : Lockvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : Statevalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : Statevalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : Parentvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : Parentvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : XferCpltCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : XferCpltCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : XferHalfCpltCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : XferM1CpltCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : XferM1CpltCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : XferM1HalfCpltCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : XferM1HalfCpltCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : XferErrorCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : XferErrorCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : XferAbortCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : XferAbortCallbackvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : ErrorCodevalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : ErrorCodevalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : StreamBaseAddressvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : StreamBaseAddressvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:325 - Argument : StreamIndexvalue: null
+2026-02-27 20:00:14,836 [INFO] Argument:335 - Argument : StreamIndexvalue: null
+2026-02-27 20:00:15,013 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/license.tmp_save
+2026-02-27 20:00:15,350 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/license.tmp
+2026-02-27 20:00:15,429 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/gpio.tmp_save
+2026-02-27 20:00:15,640 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/gpio.tmp
+2026-02-27 20:00:15,907 [WARN] IPConfigManager:103 - WARNING: Missing Config File for MEMORYMAP ip!!
+2026-02-27 20:00:16,228 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma.tmp_save
+2026-02-27 20:00:16,381 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma.tmp
+2026-02-27 20:00:16,384 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma_GV.tmp_save
+2026-02-27 20:00:16,462 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/bdma_GV.tmp
+2026-02-27 20:00:16,468 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/cortex.tmp_save
+2026-02-27 20:00:16,555 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/cortex.tmp
+2026-02-27 20:00:16,573 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_it.c_save
+2026-02-27 20:00:16,940 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_it.c
+2026-02-27 20:00:16,972 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_it.h_save
+2026-02-27 20:00:17,332 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_it.h
+2026-02-27 20:00:17,520 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_hal_msp.c_save
+2026-02-27 20:00:17,831 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/stm32h7xx_hal_msp.c
+2026-02-27 20:00:17,834 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/system.tmp_save
+2026-02-27 20:00:17,889 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/MXTmpFiles/system.tmp
+2026-02-27 20:00:17,897 [INFO] CodeEngine:321 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_hal_conf.h_save
+2026-02-27 20:00:17,953 [INFO] CodeEngine:345 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/stm32h7xx_hal_conf.h
+2026-02-27 20:00:18,009 [WARN] IPConfigManager:3811 - IP not found : TIM
+2026-02-27 20:00:18,009 [WARN] CodeGenerator:4259 - IP not found : null
+2026-02-27 20:00:18,014 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/main.h_save
+2026-02-27 20:00:18,104 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Inc/main.h
+2026-02-27 20:00:18,107 [INFO] CodeEngine:265 - oldGeneratedFile, /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/main.c_save
+2026-02-27 20:00:18,260 [INFO] CodeEngine:289 - Generated code: /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/Core/Src/main.c
+2026-02-27 20:00:18,686 [INFO] ProjectBuilder:3606 - Time for Copy HAL[1] : 112mS.
+2026-02-27 20:00:18,692 [INFO] ProjectBuilder:5216 - Project Generator version: 4.7.0-B52
+2026-02-27 20:00:18,772 [INFO] ConfigFileManager:1595 - The Die is : DIE450
+2026-02-27 20:00:21,557 [INFO] ProjectBuilder:5496 - Time for Generating toolchain IDE Files: 2855mS.
+2026-02-27 20:00:21,564 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 1mS.
+2026-02-27 20:00:21,567 [INFO] ProjectBuilder:3463 - Time for Copy CMSIS : 0mS.
+2026-02-27 20:21:13,685 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,641x593,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2026-02-27 20:22:34,924 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,0,0,641x610,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
+2026-02-27 20:56:33,359 [INFO] WebApp:194 - Connection lost
+2026-02-27 20:56:38,954 [INFO] WebApp:191 - Connection restablished

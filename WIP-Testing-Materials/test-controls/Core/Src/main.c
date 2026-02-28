@@ -51,7 +51,8 @@ typedef union {
 ADC_res pressure_transducer_outputs;
 
 const int ADC_ARRAY_1 = 1;
-const int ADC_ARRAY_2 = 2;
+const int ADC_ARRAY_2 = 1;
+const int ADC_ARRAY_3 = 3;
 
 /* USER CODE END PD */
 
@@ -73,7 +74,6 @@ TIM_HandleTypeDef htim2;
 
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
-DMA_HandleTypeDef hdma_usart2_tx;
 
 /* USER CODE BEGIN PV */
 
@@ -85,7 +85,6 @@ void PeriphCommonClock_Config(void);
 static void MPU_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_BDMA_Init(void);
-static void MX_DMA_Init(void);
 static void MX_ADC3_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_ADC1_Init(void);
@@ -133,13 +132,22 @@ int num_servos = 2;
 //
 //
 void send_data(uint8_t* buffer, int size){
-	printf("in send_data\n");
+//	printf("in send_data\n");
+//
+//	for (int i = 0; i < 10; i ++){
+//		printf("data to send: %x\n", buffer[i]);
+//	}
 
-	for (int i = 0; i < 10; i ++){
-		printf("data to send: %x\n", buffer[i]);
-	}
+	uint8_t start_val = 0xaa;
+	uint8_t start_val2 = 0xa;
+
+	HAL_UART_Transmit(&huart2, &start_val, 1, HAL_MAX_DELAY);
+	HAL_UART_Transmit(&huart2, &start_val2, 1, HAL_MAX_DELAY);
 
 	HAL_UART_Transmit_IT(&huart2, buffer, 10);
+
+	//HAL_UART_Transmit(&huart3, buffer, 10);
+
 
 
 	//HAL_UART_Transmit_DMA(&huart2, buffer, size);
@@ -165,13 +173,15 @@ void get_pressure_data(){
 
 	pressure_transducer_outputs.values.res1 = adc_values1[0];
 	pressure_transducer_outputs.values.res2 = adc_values2[0];
-	pressure_transducer_outputs.values.res3 = adc_values2[1];
-	pressure_transducer_outputs.values.res4 = adc_values3[0];
-	pressure_transducer_outputs.values.res5 = adc_values3[1];
+	pressure_transducer_outputs.values.res3 = adc_values3[0];
+	pressure_transducer_outputs.values.res4 = adc_values3[1];
+	pressure_transducer_outputs.values.res5 = adc_values3[2];
 
-	for (int i = 0; i < 10; i ++){
-		printf("%x\n", pressure_transducer_outputs.bytes_data[i]);
-	}
+
+//	for (int i = 0; i < 10; i ++){
+//		pressure_transducer_outputs.bytes_data[i] = i;
+//		printf("%x\n", pressure_transducer_outputs.bytes_data[i]);
+//	}
 
 
 	//ADC bit resolution - 12 bits
@@ -359,6 +369,8 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
 
 
 
+
+
 }
 //void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 //
@@ -460,7 +472,6 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_BDMA_Init();
-  MX_DMA_Init();
   MX_ADC3_Init();
   MX_TIM2_Init();
   MX_ADC1_Init();
@@ -494,7 +505,16 @@ int main(void)
   while (1)
   {
 	 //printf("Hi\n");
-	 HAL_Delay(1000);
+	 HAL_Delay(5000);
+
+//	 uint8_t new_buffer[10];
+//
+//	 for (int i = 0; i < 10; i++){
+//		 new_buffer[i] = 0x5;
+//	 }
+//
+//	HAL_UART_Transmit(&huart2, new_buffer, 10, 100);
+
 	 //send_data((uint8_t*)data, 5*sizeof(uint16_t));
     /* USER CODE END WHILE */
 
@@ -1041,22 +1061,6 @@ static void MX_BDMA_Init(void)
 }
 
 /**
-  * Enable DMA controller clock
-  */
-static void MX_DMA_Init(void)
-{
-
-  /* DMA controller clock enable */
-  __HAL_RCC_DMA1_CLK_ENABLE();
-
-  /* DMA interrupt init */
-  /* DMA1_Stream0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -1069,11 +1073,12 @@ static void MX_GPIO_Init(void)
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
+  __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOE_CLK_ENABLE();
+  __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */

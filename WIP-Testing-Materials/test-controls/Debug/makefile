@@ -60,8 +60,8 @@ all: main-build
 main-build: test-controls.elf secondary-outputs
 
 # Tool invocations
-test-controls.elf test-controls.map: $(OBJS) $(USER_OBJS) /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/STM32H753ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "test-controls.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"/Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/STM32H753ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test-controls.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+test-controls.elf test-controls.map: $(OBJS) $(USER_OBJS) C:\Users\omara\OneDrive\Documents\GitHub\Propulsion-Team\WIP-Testing-Materials\test-controls\STM32H753ZITX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "test-controls.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m7 -T"C:\Users\omara\OneDrive\Documents\GitHub\Propulsion-Team\WIP-Testing-Materials\test-controls\STM32H753ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test-controls.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

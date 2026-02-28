@@ -73,6 +73,7 @@ TIM_HandleTypeDef htim2;
 
 UART_HandleTypeDef huart2;
 UART_HandleTypeDef huart3;
+DMA_HandleTypeDef hdma_usart2_tx;
 
 /* USER CODE BEGIN PV */
 
@@ -84,6 +85,7 @@ void PeriphCommonClock_Config(void);
 static void MPU_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_BDMA_Init(void);
+static void MX_DMA_Init(void);
 static void MX_ADC3_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_ADC1_Init(void);
@@ -131,13 +133,26 @@ int num_servos = 2;
 //
 //
 void send_data(uint8_t* buffer, int size){
-	HAL_UART_Transmit_DMA(&huart2, buffer, size);
+	printf("in send_data\n");
+
+	for (int i = 0; i < 10; i ++){
+		printf("data to send: %x\n", buffer[i]);
+	}
+
+	HAL_UART_Transmit_IT(&huart2, buffer, 10);
+
+
+	//HAL_UART_Transmit_DMA(&huart2, buffer, size);
 
 }
 //
 //
 //
+
+
+
 void get_pressure_data(){
+	printf("in get pressure data\n");
 
 	uint16_t adc_values1[ADC_ARRAY_1];
 	uint16_t adc_values2[ADC_ARRAY_2];
@@ -154,9 +169,21 @@ void get_pressure_data(){
 	pressure_transducer_outputs.values.res4 = adc_values3[0];
 	pressure_transducer_outputs.values.res5 = adc_values3[1];
 
+	for (int i = 0; i < 10; i ++){
+		printf("%x\n", pressure_transducer_outputs.bytes_data[i]);
+	}
+
+
 	//ADC bit resolution - 12 bits
 
-	send_data((uint8_t*) pressure_transducer_outputs.bytes_data, 5);
+	send_data(pressure_transducer_outputs.bytes_data, 10);
+}
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
+	printf("in uart tx callback\n");
+    if (huart->Instance == USART2) {
+        get_pressure_data(); // Mark transmission complete
+    }
 }
 
 uint8_t control_solenoids(uint8_t input_data, uint8_t solenoid_state){
@@ -245,6 +272,7 @@ void spark_plug_on(){
 //	HAL_TIM_Base_Start_IT(&htim1);
 
 //
+
 //
 //	HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1);
 
@@ -432,6 +460,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_BDMA_Init();
+  MX_DMA_Init();
   MX_ADC3_Init();
   MX_TIM2_Init();
   MX_ADC1_Init();
@@ -450,19 +479,23 @@ int main(void)
 
   HAL_UART_Receive_IT(&huart2, &input_data, 1);
 
+  printf("First get pressure data\n");
+
+  get_pressure_data();
+
+
 
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  uint16_t data[5] = {0,1,2,3,4};
+  //uint16_t data[5] = {0,1,2,3,4};
   while (1)
   {
 	 //printf("Hi\n");
 	 HAL_Delay(1000);
-	 //get_pressure_data();
-	 send_data((uint8_t*)data, 5*sizeof(uint16_t));
+	 //send_data((uint8_t*)data, 5*sizeof(uint16_t));
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -1004,6 +1037,22 @@ static void MX_BDMA_Init(void)
   /* BDMA_Channel0_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(BDMA_Channel0_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(BDMA_Channel0_IRQn);
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA1_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA1_Stream0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream0_IRQn);
 
 }
 

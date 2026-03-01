@@ -60,7 +60,7 @@ class SensorGraph {
 	addPoint(x,y) {
 		this.dataPoints.labels.push(x);
 		this.dataPoints.labels = this.dataPoints.labels.slice(-50);
-		this.dataPoints.datasets[0].data.push(this.interpFn(y));
+		this.dataPoints.datasets[0].data.push(y);
 		this.dataPoints.datasets[0].data = this.dataPoints.datasets[0].data.slice(-50);
 		this.chart.data = this.dataPoints;
 		this.currentData.textContent = y.toString();
@@ -139,17 +139,27 @@ class BinaryActuator {
 // makes a pressure transducer interpretation function, 
 // given the resistor's resistance
 // in ohms as an input to the function
-function makePTInterpFn(resistance) {
-	// in omar we trust :)
-	return (x) => (((3300/4095)/resistance) * x/50 * 18.75) - 75
+function makePTInterpFn(resistance, maxPressure) {
+	return (x) => {
+		volts = ((3.3/4095.0)*x)
+		millivolts = volts * 20;
+		milliamps = millivolts / resistance;
+		
+		slope = maxPressure/16;
+		value = slope*(milliamps-4);
+		return value;
+	}
 }
 
 // (3.3/4095 * x) * 18.75 - 75
 // some constants (temporary)
 const num_graphs = 5;
+maxPressures = [600, 600, 600, 300, 300];
+prevArray = [0,0,0,0,0];
+
 let graphs = [];
 for (let i = 0; i < num_graphs; i++) {
-	graphs.push(new SensorGraph(i.toString(), (x) => x/*makePTInterpFn(1)*/));
+	graphs.push(new SensorGraph(i.toString(), makePTInterpFn(1,maxPressures[i])));
 }
 
 solenoid1 = new BinaryActuator("Ox Solenoid:", 0, 0)
@@ -166,9 +176,14 @@ sparkPlug = new BinaryActuator("Spark Plug:", 0, 4)
 let counter = 0;
 window.electronAPI.onSerialPacket((packet) => {
 	
+	alpha = 0.1;
+	
 	for (let i = 0; i < num_graphs; i++) {
-		value = graphs[i].interpFn(packet[2*i] + ((packet[2*i+1]) << 8)); //this may be backwards
+		current = graphs[i].interpFn(packet[2*i] + ((packet[2*i+1]) << 8)); //this may be backwards
+		if (current < 0) current = 0;
+		value = (1-alpha) * current + alpha * prevArray[i];
 		graphs[i].addPoint(counter, value);
+		prevArray[i] = value;
 	}
 	
 	counter += 1;

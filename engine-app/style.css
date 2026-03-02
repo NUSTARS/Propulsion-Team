@@ -18,6 +18,9 @@ canvas{
     background-color: #ffffff;
     border-radius: 8px;
 }
+p {
+    color: #ffffff;
+}
 
 #mainMenuBody{
     overflow: hidden;

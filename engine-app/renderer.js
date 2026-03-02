@@ -156,10 +156,12 @@ function makePTInterpFn(resistance, maxPressure) {
 const num_graphs = 5;
 maxPressures = [600, 600, 600, 300, 300];
 prevArray = [0,0,0,0,0];
+sensorNames = ['ox upstream','chamber','ox stag','abc','def'];
+
 
 let graphs = [];
 for (let i = 0; i < num_graphs; i++) {
-	graphs.push(new SensorGraph(i.toString(), makePTInterpFn(1,maxPressures[i])));
+	graphs.push(new SensorGraph(sensorNames[i], makePTInterpFn(1,maxPressures[i])));
 }
 
 solenoid1 = new BinaryActuator("Ox Solenoid:", 0, 0)
@@ -176,11 +178,11 @@ sparkPlug = new BinaryActuator("Spark Plug:", 0, 4)
 let counter = 0;
 window.electronAPI.onSerialPacket((packet) => {
 	
-	alpha = 0.1;
+	alpha = 0.99;
 	
 	for (let i = 0; i < num_graphs; i++) {
 		current = graphs[i].interpFn(packet[2*i] + ((packet[2*i+1]) << 8)); //this may be backwards
-		if (current < 0) current = 0;
+		//if (current < 0) current = 0;
 		value = (1-alpha) * current + alpha * prevArray[i];
 		graphs[i].addPoint(counter, value);
 		prevArray[i] = value;

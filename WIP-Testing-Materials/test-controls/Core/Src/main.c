@@ -50,6 +50,8 @@ typedef union {
 
 ADC_res pressure_transducer_outputs;
 
+uint16_t adc_vals[5];
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -160,15 +162,27 @@ void send_data(uint8_t* buffer, int size){
 void get_pressure_data(){
 	// printf("in get pressure data\n");
 
-	pressure_transducer_outputs.values.res1 = ADC_Convert(&hadc1);
-	pressure_transducer_outputs.values.res2 = ADC_Convert(&hadc2);
-	pressure_transducer_outputs.values.res3 = ADC_Convert(&hadc3);
-	pressure_transducer_outputs.values.res4 = 0;
-	pressure_transducer_outputs.values.res5 = 0;
+//	pressure_transducer_outputs.values.res1 = ADC_Convert(&hadc1);
+//	HAL_ADC_Stop(&hadc1);
+//
+//	pressure_transducer_outputs.values.res2 = ADC_Convert(&hadc2);
+//	pressure_transducer_outputs.values.res3 = ADC_Convert(&hadc2);
+//	HAL_ADC_Stop(&hadc2);
+//
+//	pressure_transducer_outputs.values.res4 = ADC_Convert(&hadc3);
+//	pressure_transducer_outputs.values.res5 = ADC_Convert(&hadc3);
+//	HAL_ADC_Stop(&hadc3);
 
-	printf("PT1: %d\r\n", pressure_transducer_outputs.values.res1);
-	printf("PT2: %d\r\n", pressure_transducer_outputs.values.res2);
-	printf("PT3: %d\r\n", pressure_transducer_outputs.values.res3);
+	adc_vals[0] = ADC_Convert(&hadc1);
+	HAL_ADC_Stop(&hadc1);
+
+	adc_vals[1] = ADC_Convert(&hadc2);
+	adc_vals[2] = ADC_Convert(&hadc2);
+	HAL_ADC_Stop(&hadc2);
+
+	adc_vals[3] = ADC_Convert(&hadc3);
+	adc_vals[4] = ADC_Convert(&hadc3);
+	HAL_ADC_Stop(&hadc3);
 
 //	for (int i = 0; i < 10; i ++){
 //		pressure_transducer_outputs.bytes_data[i] = i;
@@ -178,7 +192,7 @@ void get_pressure_data(){
 
 	//ADC bit resolution - 12 bits
 
-	send_data(pressure_transducer_outputs.bytes_data, 10);
+	send_data(adc_vals, 10);
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
@@ -483,6 +497,10 @@ int main(void)
 
   printf("First get pressure data\n");
 
+  HAL_ADCEx_Calibration_Start(&hadc1, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
+  HAL_ADCEx_Calibration_Start(&hadc2, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
+  HAL_ADCEx_Calibration_Start(&hadc3, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
+
   // get_pressure_data();
 
 
@@ -497,7 +515,7 @@ int main(void)
   {
 	 //printf("Hi\n");
 	 get_pressure_data();
-	 HAL_Delay(5000);
+//	 HAL_Delay(5000);
 
 //	 uint8_t new_buffer[10];
 //
@@ -692,12 +710,13 @@ static void MX_ADC2_Init(void)
   hadc2.Instance = ADC2;
   hadc2.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV2;
   hadc2.Init.Resolution = ADC_RESOLUTION_12B;
-  hadc2.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc2.Init.ScanConvMode = ADC_SCAN_ENABLE;
   hadc2.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   hadc2.Init.LowPowerAutoWait = DISABLE;
   hadc2.Init.ContinuousConvMode = DISABLE;
-  hadc2.Init.NbrOfConversion = 1;
-  hadc2.Init.DiscontinuousConvMode = DISABLE;
+  hadc2.Init.NbrOfConversion = 2;
+  hadc2.Init.DiscontinuousConvMode = ENABLE;
+  hadc2.Init.NbrOfDiscConversion = 1;
   hadc2.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc2.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc2.Init.ConversionDataManagement = ADC_CONVERSIONDATA_DR;
@@ -719,6 +738,15 @@ static void MX_ADC2_Init(void)
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
   sConfig.OffsetSignedSaturation = DISABLE;
+  if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Regular Channel
+  */
+  sConfig.Channel = ADC_CHANNEL_10;
+  sConfig.Rank = ADC_REGULAR_RANK_2;
   if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -752,12 +780,13 @@ static void MX_ADC3_Init(void)
   hadc3.Instance = ADC3;
   hadc3.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV2;
   hadc3.Init.Resolution = ADC_RESOLUTION_12B;
-  hadc3.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc3.Init.ScanConvMode = ADC_SCAN_ENABLE;
   hadc3.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   hadc3.Init.LowPowerAutoWait = DISABLE;
   hadc3.Init.ContinuousConvMode = DISABLE;
-  hadc3.Init.NbrOfConversion = 1;
-  hadc3.Init.DiscontinuousConvMode = DISABLE;
+  hadc3.Init.NbrOfConversion = 2;
+  hadc3.Init.DiscontinuousConvMode = ENABLE;
+  hadc3.Init.NbrOfDiscConversion = 1;
   hadc3.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc3.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc3.Init.ConversionDataManagement = ADC_CONVERSIONDATA_DR;
@@ -772,13 +801,22 @@ static void MX_ADC3_Init(void)
 
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_10;
+  sConfig.Channel = ADC_CHANNEL_0;
   sConfig.Rank = ADC_REGULAR_RANK_1;
   sConfig.SamplingTime = ADC_SAMPLETIME_387CYCLES_5;
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
   sConfig.OffsetSignedSaturation = DISABLE;
+  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Regular Channel
+  */
+  sConfig.Channel = ADC_CHANNEL_1;
+  sConfig.Rank = ADC_REGULAR_RANK_2;
   if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -1082,11 +1120,9 @@ int _write(int fd, char* ptr, int len)
 
 uint16_t ADC_Convert(ADC_HandleTypeDef* adc)
 {
-  HAL_ADCEx_Calibration_Start(adc, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
   HAL_ADC_Start(adc);
   HAL_ADC_PollForConversion(adc, HAL_MAX_DELAY);
   uint16_t adcval = HAL_ADC_GetValue(adc);
-  HAL_ADC_Stop(adc);
   return adcval;
 }
 

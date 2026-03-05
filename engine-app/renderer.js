@@ -178,7 +178,9 @@ sparkPlug = new BinaryActuator("Spark Plug:", 0, 4)
 let counter = 0;
 window.electronAPI.onSerialPacket((packet) => {
 	
-	alpha = 0.99;
+	alpha = 0;
+
+	
 	
 	for (let i = 0; i < num_graphs; i++) {
 		current = graphs[i].interpFn(packet[2*i] + ((packet[2*i+1]) << 8)); //this may be backwards

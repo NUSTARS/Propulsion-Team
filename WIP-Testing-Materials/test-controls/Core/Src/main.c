@@ -50,9 +50,7 @@ typedef union {
 
 ADC_res pressure_transducer_outputs;
 
-const int ADC_ARRAY_1 = 1;
-const int ADC_ARRAY_2 = 1;
-const int ADC_ARRAY_3 = 3;
+uint16_t adc_vals[5];
 
 /* USER CODE END PD */
 
@@ -67,7 +65,6 @@ const int ADC_ARRAY_3 = 3;
 ADC_HandleTypeDef hadc1;
 ADC_HandleTypeDef hadc2;
 ADC_HandleTypeDef hadc3;
-DMA_HandleTypeDef hdma_adc3;
 
 TIM_HandleTypeDef htim1;
 TIM_HandleTypeDef htim2;
@@ -84,16 +81,19 @@ void SystemClock_Config(void);
 void PeriphCommonClock_Config(void);
 static void MPU_Config(void);
 static void MX_GPIO_Init(void);
-static void MX_BDMA_Init(void);
-static void MX_ADC3_Init(void);
 static void MX_TIM2_Init(void);
 static void MX_ADC1_Init(void);
 static void MX_USART3_UART_Init(void);
 static void MX_TIM1_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_ADC2_Init(void);
+static void MX_ADC3_Init(void);
 /* USER CODE BEGIN PFP */
-
+uint16_t ADC_Convert(ADC_HandleTypeDef* adc);
+//uint16_t ADC2_Convert_Rank1(void);
+//uint16_t ADC2_Convert_Rank2(void);
+//uint16_t ADC3_Convert_Rank1(void);
+//uint16_t ADC3_Convert_Rank2(void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -160,23 +160,29 @@ void send_data(uint8_t* buffer, int size){
 
 
 void get_pressure_data(){
-	printf("in get pressure data\n");
+	// printf("in get pressure data\n");
 
-	uint16_t adc_values1[ADC_ARRAY_1];
-	uint16_t adc_values2[ADC_ARRAY_2];
-	uint16_t adc_values3[ADC_ARRAY_2];
-	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_values1, 1);
-	HAL_ADC_Start_DMA(&hadc2, (uint32_t*)adc_values2, 2);
-	HAL_ADC_Start_DMA(&hadc3, (uint32_t*)adc_values3, 2);
+//	pressure_transducer_outputs.values.res1 = ADC_Convert(&hadc1);
+//	HAL_ADC_Stop(&hadc1);
+//
+//	pressure_transducer_outputs.values.res2 = ADC_Convert(&hadc2);
+//	pressure_transducer_outputs.values.res3 = ADC_Convert(&hadc2);
+//	HAL_ADC_Stop(&hadc2);
+//
+//	pressure_transducer_outputs.values.res4 = ADC_Convert(&hadc3);
+//	pressure_transducer_outputs.values.res5 = ADC_Convert(&hadc3);
+//	HAL_ADC_Stop(&hadc3);
 
+	adc_vals[0] = ADC_Convert(&hadc1);
+	HAL_ADC_Stop(&hadc1);
 
+	adc_vals[1] = ADC_Convert(&hadc2);
+	adc_vals[2] = ADC_Convert(&hadc2);
+	HAL_ADC_Stop(&hadc2);
 
-	pressure_transducer_outputs.values.res1 = adc_values1[0];
-	pressure_transducer_outputs.values.res2 = adc_values2[0];
-	pressure_transducer_outputs.values.res3 = adc_values3[0];
-	pressure_transducer_outputs.values.res4 = adc_values3[1];
-	pressure_transducer_outputs.values.res5 = adc_values3[2];
-
+	adc_vals[3] = ADC_Convert(&hadc3);
+	adc_vals[4] = ADC_Convert(&hadc3);
+	HAL_ADC_Stop(&hadc3);
 
 //	for (int i = 0; i < 10; i ++){
 //		pressure_transducer_outputs.bytes_data[i] = i;
@@ -186,7 +192,7 @@ void get_pressure_data(){
 
 	//ADC bit resolution - 12 bits
 
-	send_data(pressure_transducer_outputs.bytes_data, 10);
+	send_data(adc_vals, 10);
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
@@ -471,14 +477,13 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_BDMA_Init();
-  MX_ADC3_Init();
   MX_TIM2_Init();
   MX_ADC1_Init();
   MX_USART3_UART_Init();
   MX_TIM1_Init();
   MX_USART2_UART_Init();
   MX_ADC2_Init();
+  MX_ADC3_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
@@ -492,7 +497,11 @@ int main(void)
 
   printf("First get pressure data\n");
 
-  get_pressure_data();
+  HAL_ADCEx_Calibration_Start(&hadc1, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
+  HAL_ADCEx_Calibration_Start(&hadc2, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
+  HAL_ADCEx_Calibration_Start(&hadc3, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
+
+  // get_pressure_data();
 
 
 
@@ -505,7 +514,8 @@ int main(void)
   while (1)
   {
 	 //printf("Hi\n");
-	 HAL_Delay(5000);
+	 get_pressure_data();
+//	 HAL_Delay(5000);
 
 //	 uint8_t new_buffer[10];
 //
@@ -634,9 +644,10 @@ static void MX_ADC1_Init(void)
   hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
   hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   hadc1.Init.LowPowerAutoWait = DISABLE;
-  hadc1.Init.ContinuousConvMode = ENABLE;
+  hadc1.Init.ContinuousConvMode = DISABLE;
   hadc1.Init.NbrOfConversion = 1;
-  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.DiscontinuousConvMode = ENABLE;
+  hadc1.Init.NbrOfDiscConversion = 1;
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc1.Init.ConversionDataManagement = ADC_CONVERSIONDATA_DR;
@@ -659,9 +670,9 @@ static void MX_ADC1_Init(void)
 
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_10;
+  sConfig.Channel = ADC_CHANNEL_15;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_387CYCLES_5;
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
@@ -698,13 +709,14 @@ static void MX_ADC2_Init(void)
   */
   hadc2.Instance = ADC2;
   hadc2.Init.ClockPrescaler = ADC_CLOCK_ASYNC_DIV2;
-  hadc2.Init.Resolution = ADC_RESOLUTION_16B;
-  hadc2.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc2.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc2.Init.ScanConvMode = ADC_SCAN_ENABLE;
   hadc2.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   hadc2.Init.LowPowerAutoWait = DISABLE;
   hadc2.Init.ContinuousConvMode = DISABLE;
-  hadc2.Init.NbrOfConversion = 1;
-  hadc2.Init.DiscontinuousConvMode = DISABLE;
+  hadc2.Init.NbrOfConversion = 2;
+  hadc2.Init.DiscontinuousConvMode = ENABLE;
+  hadc2.Init.NbrOfDiscConversion = 1;
   hadc2.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc2.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc2.Init.ConversionDataManagement = ADC_CONVERSIONDATA_DR;
@@ -719,13 +731,22 @@ static void MX_ADC2_Init(void)
 
   /** Configure Regular Channel
   */
-  sConfig.Channel = ADC_CHANNEL_15;
+  sConfig.Channel = ADC_CHANNEL_5;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_387CYCLES_5;
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
   sConfig.OffsetSignedSaturation = DISABLE;
+  if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure Regular Channel
+  */
+  sConfig.Channel = ADC_CHANNEL_10;
+  sConfig.Rank = ADC_REGULAR_RANK_2;
   if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
   {
     Error_Handler();
@@ -762,9 +783,10 @@ static void MX_ADC3_Init(void)
   hadc3.Init.ScanConvMode = ADC_SCAN_ENABLE;
   hadc3.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   hadc3.Init.LowPowerAutoWait = DISABLE;
-  hadc3.Init.ContinuousConvMode = ENABLE;
+  hadc3.Init.ContinuousConvMode = DISABLE;
   hadc3.Init.NbrOfConversion = 2;
-  hadc3.Init.DiscontinuousConvMode = DISABLE;
+  hadc3.Init.DiscontinuousConvMode = ENABLE;
+  hadc3.Init.NbrOfDiscConversion = 1;
   hadc3.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc3.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
   hadc3.Init.ConversionDataManagement = ADC_CONVERSIONDATA_DR;
@@ -781,7 +803,7 @@ static void MX_ADC3_Init(void)
   */
   sConfig.Channel = ADC_CHANNEL_0;
   sConfig.Rank = ADC_REGULAR_RANK_1;
-  sConfig.SamplingTime = ADC_SAMPLETIME_32CYCLES_5;
+  sConfig.SamplingTime = ADC_SAMPLETIME_387CYCLES_5;
   sConfig.SingleDiff = ADC_SINGLE_ENDED;
   sConfig.OffsetNumber = ADC_OFFSET_NONE;
   sConfig.Offset = 0;
@@ -1045,22 +1067,6 @@ static void MX_USART3_UART_Init(void)
 }
 
 /**
-  * Enable DMA controller clock
-  */
-static void MX_BDMA_Init(void)
-{
-
-  /* DMA controller clock enable */
-  __HAL_RCC_BDMA_CLK_ENABLE();
-
-  /* DMA interrupt init */
-  /* BDMA_Channel0_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(BDMA_Channel0_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(BDMA_Channel0_IRQn);
-
-}
-
-/**
   * @brief GPIO Initialization Function
   * @param None
   * @retval None
@@ -1073,12 +1079,11 @@ static void MX_GPIO_Init(void)
   /* USER CODE END MX_GPIO_Init_1 */
 
   /* GPIO Ports Clock Enable */
-  __HAL_RCC_GPIOF_CLK_ENABLE();
   __HAL_RCC_GPIOH_CLK_ENABLE();
   __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
-  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
@@ -1112,6 +1117,110 @@ int _write(int fd, char* ptr, int len)
   HAL_UART_Transmit(&huart3, (uint8_t*) ptr, len, HAL_MAX_DELAY);
   return len;
 }
+
+uint16_t ADC_Convert(ADC_HandleTypeDef* adc)
+{
+  HAL_ADC_Start(adc);
+  HAL_ADC_PollForConversion(adc, HAL_MAX_DELAY);
+  uint16_t adcval = HAL_ADC_GetValue(adc);
+  return adcval;
+}
+
+//uint16_t ADC2_Convert_Rank1(void)
+//{
+//  /* Configure channel */
+//  ADC_ChannelConfTypeDef sConfig = {0};
+//  sConfig.Channel = ADC_CHANNEL_5;
+//  sConfig.Rank = ADC_REGULAR_RANK_1;
+//  sConfig.SamplingTime = ADC_SAMPLETIME_810CYCLES_5;
+//  sConfig.SingleDiff = ADC_SINGLE_ENDED;
+//  sConfig.OffsetNumber = ADC_OFFSET_NONE;
+//  sConfig.Offset = 0;
+//  sConfig.OffsetSignedSaturation = DISABLE;
+//  if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//
+//  /* Convert the Channel */
+//  HAL_ADC_Start(&hadc2);
+//  HAL_ADC_PollForConversion(&hadc2, 100);
+//  uint16_t adcval = HAL_ADC_GetValue(&hadc2);
+//  HAL_ADC_Stop(&hadc2);
+//  return adcval;
+//}
+//
+//uint16_t ADC2_Convert_Rank2(void)
+//{
+//  /* Configure channel */
+//  ADC_ChannelConfTypeDef sConfig = {0};
+//  sConfig.Channel = ADC_CHANNEL_15;
+//  sConfig.Rank = ADC_REGULAR_RANK_1;
+//  sConfig.SamplingTime = ADC_SAMPLETIME_810CYCLES_5;
+//  sConfig.SingleDiff = ADC_SINGLE_ENDED;
+//  sConfig.OffsetNumber = ADC_OFFSET_NONE;
+//  sConfig.Offset = 0;
+//  sConfig.OffsetSignedSaturation = DISABLE;
+//  if (HAL_ADC_ConfigChannel(&hadc2, &sConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//
+//  /* Convert the Channel */
+//  HAL_ADC_Start(&hadc2);
+//  HAL_ADC_PollForConversion(&hadc2, 100);
+//  uint16_t adcval = HAL_ADC_GetValue(&hadc2);
+//  HAL_ADC_Stop(&hadc2);
+//  return adcval;
+//}
+//
+//uint16_t ADC3_Convert_Rank1(void)
+//{
+//  /* Configure channel */
+//  ADC_ChannelConfTypeDef sConfig = {0};
+//  sConfig.Channel = ADC_CHANNEL_0;
+//  sConfig.Rank = ADC_REGULAR_RANK_1;
+//  sConfig.SamplingTime = ADC_SAMPLETIME_810CYCLES_5;
+//  sConfig.SingleDiff = ADC_SINGLE_ENDED;
+//  sConfig.OffsetNumber = ADC_OFFSET_NONE;
+//  sConfig.Offset = 0;
+//  sConfig.OffsetSignedSaturation = DISABLE;
+//  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//
+//  /* Convert the Channel */
+//  HAL_ADC_Start(&hadc3);
+//  HAL_ADC_PollForConversion(&hadc3, 100);
+//  uint16_t adcval = HAL_ADC_GetValue(&hadc3);
+//  HAL_ADC_Stop(&hadc3);
+//  return adcval;
+//}
+//
+//uint16_t ADC3_Convert_Rank2(void)
+//{
+//  /* Configure channel */
+//  ADC_ChannelConfTypeDef sConfig = {0};
+//  sConfig.Channel = ADC_CHANNEL_1;
+//  sConfig.Rank = ADC_REGULAR_RANK_1;
+//  sConfig.SamplingTime = ADC_SAMPLETIME_810CYCLES_5;
+//  sConfig.SingleDiff = ADC_SINGLE_ENDED;
+//  sConfig.OffsetNumber = ADC_OFFSET_NONE;
+//  sConfig.Offset = 0;
+//  sConfig.OffsetSignedSaturation = DISABLE;
+//  if (HAL_ADC_ConfigChannel(&hadc3, &sConfig) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
+//
+//  /* Convert the Channel */
+//  HAL_ADC_Start(&hadc3);
+//  HAL_ADC_PollForConversion(&hadc3, 100);
+//  uint16_t adcval = HAL_ADC_GetValue(&hadc3);
+//  HAL_ADC_Stop(&hadc3);
+//  return adcval;
+//}
 /* USER CODE END 4 */
 
  /* MPU Configuration */

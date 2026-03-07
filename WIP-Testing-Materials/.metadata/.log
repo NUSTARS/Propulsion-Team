@@ -97,3 +97,19 @@ C Model Exception: C Model Status [Element main.c does not exist.]
 	at org.eclipse.jface.text.reconciler.AbstractReconciler$BackgroundThread.run(AbstractReconciler.java:207)
 !SUBENTRY 1 org.eclipse.cdt.core 4 969 2026-02-27 20:47:27.498
 !MESSAGE Element main.c does not exist.
+!SESSION 2026-03-06 21:33:57.275 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/sm/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/sm/.eclipse_keyring
+
+!ENTRY org.eclipse.core.resources 2 10035 2026-03-06 21:34:05.882
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-03-06 21:34:09.789
+!MESSAGE Log4j2 initialized with config file /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-03-06 21:34:17.244
+!MESSAGE Started RMI Server, listening on port 41337

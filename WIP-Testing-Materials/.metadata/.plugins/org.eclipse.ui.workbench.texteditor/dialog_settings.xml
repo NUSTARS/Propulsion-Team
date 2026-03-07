@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="false"/>
+	<list key="searchhistory">
+		<item value="sparkplug"/>
+		<item value="GPIO_PIN_12"/>
+		<item value="sparkplug_state"/>
+		<item value="mx_adc3"/>
+		<item value="continu"/>
+		<item value="oversampling"/>
+		<item value="while"/>
+		<item value="adc_irqhandler"/>
+		<item value="void HAL_ADC_MspInit(ADC_HandleTypeDef* hadc) {"/>
+		<item value="invalidate"/>
+		<item value="hal_adc_getvalue"/>
+		<item value="hal_adc_get"/>
+		<item value="hal_adc_poll"/>
+		<item value="adc3_buffer"/>
+		<item value="hal_adc_start_dma"/>
+	</list>
+</section>

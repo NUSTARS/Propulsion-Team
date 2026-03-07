@@ -283,7 +283,7 @@ bool first = true;
 
 void spark_plug_on(){
 	printf("Turning spark plug on\n");
-//	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_SET);
 //	HAL_TIM_OnePulse_Start_IT()
 //	HAL_TIM_Base_Start_IT(&htim1);
 

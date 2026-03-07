@@ -156,7 +156,7 @@ function makePTInterpFn(resistance, maxPressure) {
 const num_graphs = 5;
 maxPressures = [600, 600, 600, 300, 300];
 prevArray = [0,0,0,0,0];
-sensorNames = ['ox upstream','chamber','ox stag','abc','def'];
+sensorNames = ['ox upstream','chamber','ox stag','ethanol upstream','ethanol stag'];
 
 
 let graphs = [];
@@ -176,12 +176,36 @@ sparkPlug = new BinaryActuator("Spark Plug:", 0, 4)
 // Main execution (we could put it in a function, but idk what to call it (this is me attempting to be funny))
 
 let counter = 0;
+let phase = 0; // on phase 2 we take median of samples and then go back to phase 0
+const num_samples = 3;
+let medianBuffer = Array(num_samples);
+for (let i = 0; i < num_graphs; i++) {
+  medianBuffer[i] = new Array(num_graphs).fill(0);
+}
+
 window.electronAPI.onSerialPacket((packet) => {
 	
-	alpha = 0;
-
+	alpha = 0.9;
 	
+	for (let i = 0; i < num_graphs; i++) {
+		medianBuffer[phase][i] = graphs[i].interpFn(packet[2*i] + ((packet[2*i+1]) << 8));
+		// only proceed if we have num_samples_samples
+		if (phase != num_samples - 1) {continue};
+		// compute median
+		medianBuffer[phase].sort();
+		let median = medianBuffer[phase][(num_samples-1)/2];
+		value = (1-alpha) * median + alpha * prevArray[i];
+		graphs[i].addPoint(counter,value);
+		prevArray[i] = value;
+		
+	}
 	
+	phase = (phase + 1) % num_samples;
+	if (phase == 0) {
+		counter += 1;
+	}
+	
+	/*
 	for (let i = 0; i < num_graphs; i++) {
 		current = graphs[i].interpFn(packet[2*i] + ((packet[2*i+1]) << 8)); //this may be backwards
 		//if (current < 0) current = 0;
@@ -190,7 +214,9 @@ window.electronAPI.onSerialPacket((packet) => {
 		prevArray[i] = value;
 	}
 	
+
 	counter += 1;
+	*/
 })
 
 

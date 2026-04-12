@@ -199,6 +199,7 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
 	printf("in uart tx callback\n");
     if (huart->Instance == USART2) {
         get_pressure_data(); // Mark transmission complete
+        printf("completed get pressure data\n");
     }
 }
 
@@ -281,43 +282,43 @@ uint8_t control_ballvalves(uint8_t input_data, uint8_t valve_state){
 
 bool first = true;
 
-void spark_plug_on(){
-	printf("Turning spark plug on\n");
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_SET);
-//	HAL_TIM_OnePulse_Start_IT()
-//	HAL_TIM_Base_Start_IT(&htim1);
-
+//void spark_plug_on(){
+//	printf("Turning spark plug on\n");
+//	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_SET);
+////	HAL_TIM_OnePulse_Start_IT()
+////	HAL_TIM_Base_Start_IT(&htim1);
 //
-
+////
 //
-//	HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1);
-
-
-
-
-	if (first){
-
-		__HAL_TIM_SET_COUNTER(&htim1, 0);
-		//
-		//	    // 2. Clear any pending interrupts to avoid an immediate callback
-		__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
-		HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1);
-
-		first = false;
-
-
-
-	}
-	else{
-
-		__HAL_TIM_SET_COUNTER(&htim1, 0);
-				//
-				//	    // 2. Clear any pending interrupts to avoid an immediate callback
-		__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
-
-	    __HAL_TIM_ENABLE(&htim1);
-
-	}
+////
+////	HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1);
+//
+//
+//
+//
+//	if (first){
+//
+//		__HAL_TIM_SET_COUNTER(&htim1, 0);
+//		//
+//		//	    // 2. Clear any pending interrupts to avoid an immediate callback
+//		__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
+//		HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1);
+//
+//		first = false;
+//
+//
+//
+//	}
+//	else{
+//
+//		__HAL_TIM_SET_COUNTER(&htim1, 0);
+//				//
+//				//	    // 2. Clear any pending interrupts to avoid an immediate callback
+//		__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
+//
+//	    __HAL_TIM_ENABLE(&htim1);
+//
+//	}
 //
 //
 
@@ -345,39 +346,84 @@ void spark_plug_on(){
 //	    if (HAL_TIM_OnePulse_Start_IT(&htim1, TIM_CHANNEL_1) != HAL_OK) {
 //	        printf("Error restarting TIM1\n");
 //	    }
+//}
+
+//void spark_plug_off(){
+//	printf("Turning spark plug off\n");
+//	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
+//
+//	//sparkplug_state = 0x0;
+//	//HAL_TIM_Base_Stop_IT(&htim1);
+//
+//	//HAL_TIM_OnePulse_Stop_IT(&htim1, TIM_CHANNEL_1);
+//	//htim1.State = HAL_TIM_STATE_READY;a
+//    // 2. Clear any pending interrupts to avoid an immediate callback
+//}
+
+
+
+//void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
+//	//__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
+//	//__HAL_TIM_CLEAR_FLAG(htim, TIM_FLAG_CC1);
+//
+//	printf("Reached timer callback");
+//	if (htim->Instance == TIM1)
+//		  {
+//		//HAL_TIM_OnePulse_Stop_IT(htim, TIM_CHANNEL_1);
+//
+//		//htim->State = HAL_TIM_STATE_READY;
+//		if (sparkplug_state){
+//			printf("toggling pin\n");
+//			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_12);
+//
+//		}
+//			//spark_plug_off();
+//		  }
+//
+//
+//
+//
+//
+//}
+
+//void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+//	printf("Reached timer callback");
+//		if (htim->Instance == TIM1)
+//			  {
+//			//HAL_TIM_OnePulse_Stop_IT(htim, TIM_CHANNEL_1)
+//			//htim->State = HAL_TIM_STATE_READY;
+//			if (sparkplug_state){
+//				printf("toggling pin\n");
+//				HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_12);
+//
+//			}
+//				//spark_plug_off();
+//			  }
+//
+//}
+
+
+
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+
+	printf("Reached timer callback\n");
+				//HAL_TIM_OnePulse_Stop_IT(htim, TIM_CHANNEL_1)
+				//htim->State = HAL_TIM_STATE_READY;
+
+	if (htim->Instance == TIM1){
+		printf("Reached TIM1");
+		printf("Sparkplug state %x", sparkplug_state);
+
+		if (sparkplug_state){
+			printf("toggling pin\n");
+			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_12);
+
+		}
+	}
+					//spark_plug_off();
+
 }
 
-void spark_plug_off(){
-	printf("Turning spark plug off\n");
-	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_RESET);
-
-	sparkplug_state = 0x0;
-	//HAL_TIM_Base_Stop_IT(&htim1);
-
-	//HAL_TIM_OnePulse_Stop_IT(&htim1, TIM_CHANNEL_1);
-	//htim1.State = HAL_TIM_STATE_READY;
-    // 2. Clear any pending interrupts to avoid an immediate callback
-}
-
-
-
-void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim){
-	__HAL_TIM_CLEAR_IT(&htim1, TIM_IT_UPDATE);
-
-	printf("Reached timer callback");
-	if (htim->Instance == TIM1)
-		  {
-		//HAL_TIM_OnePulse_Stop_IT(htim, TIM_CHANNEL_1);
-
-		//htim->State = HAL_TIM_STATE_READY;
-			spark_plug_off();
-		  }
-
-
-
-
-
-}
 //void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 //
 //}
@@ -414,12 +460,22 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 
         printf("%x\n", input_data >> 4);
 
-        if ((input_data >> 4 )& 0x1 & !sparkplug_state){
-        	sparkplug_state = 0x1;
-               	spark_plug_on();
-              }
+//        if ((input_data >> 4 )& 0x1 & !sparkplug_state){
+//        	sparkplug_state = 0x1;
+//               	spark_plug_on();
+//              }
+
+        if ((input_data >> 4 ) & 0x1) {
+        		printf("Reached sparkplug state update\n");
+
+               	sparkplug_state = 0x1; }
+	   else {
+			sparkplug_state = 0x0;
+	   }
         //HAL_UART_Receive_IT(&huart, &input_data, 1); OLD
         HAL_UART_Receive_IT(huart, &input_data, 1); // NEW
+
+
 
         // spark plug - on 0.5 s timer & GPIO pin
 
@@ -487,21 +543,30 @@ int main(void)
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_3);
   HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_4);
-  HAL_TIM_Base_Start_IT(&htim1);
+  //HAL_TIM_Base_Start_IT(&htim1);
 
 
 
 
 
   HAL_UART_Receive_IT(&huart2, &input_data, 1);
+  printf("Reached start\n");
 
   printf("First get pressure data\n");
+
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_SET);
+
 
   HAL_ADCEx_Calibration_Start(&hadc1, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
   HAL_ADCEx_Calibration_Start(&hadc2, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
   HAL_ADCEx_Calibration_Start(&hadc3, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
 
-  // get_pressure_data();
+  //get_pressure_data();
+
+  HAL_TIM_Base_Start_IT(&htim1);
+
+
+
 
 
 
@@ -514,7 +579,8 @@ int main(void)
   while (1)
   {
 	 //printf("Hi\n");
-	 get_pressure_data();
+	 //printf("In main loop\n");
+	 //get_pressure_data();
 //	 HAL_Delay(5000);
 
 //	 uint8_t new_buffer[10];

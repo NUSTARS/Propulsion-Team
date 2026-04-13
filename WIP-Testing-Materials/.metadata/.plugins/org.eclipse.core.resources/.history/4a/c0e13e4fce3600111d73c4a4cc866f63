@@ -479,6 +479,9 @@ int main(void)
 
   get_pressure_data();
 
+  HAL_TIM_Base_Start_IT(&htim1);
+
+
 
 
 

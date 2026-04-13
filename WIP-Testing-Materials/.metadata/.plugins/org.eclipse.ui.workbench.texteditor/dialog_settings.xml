@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<item key="hasShownOverlayPopupBefore" value="true"/>
+	<item key="replaceBarOpen" value="false"/>
+	<list key="searchhistory">
+		<item value="sparkplug_state"/>
+		<item value="reached timer callback"/>
+		<item value="TIM1_UP"/>
+		<item value="TIM1"/>
+		<item value="void TIM1_UP"/>
+		<item value="&amp;htim1"/>
+		<item value="hal_uart_transmit_it"/>
+		<item value="get_pressure_data"/>
+		<item value="HAL_TIM_Base_Start_IT(&amp;htim1);"/>
+		<item value="HAL_TIM_Base_Start_IT(&amp;htim1);&#x0A;"/>
+		<item value="tim1"/>
+		<item value="onepulse"/>
+		<item value="one_pulse"/>
+		<item value="irq_handler"/>
+		<item value="irq_han"/>
+	</list>
+</section>

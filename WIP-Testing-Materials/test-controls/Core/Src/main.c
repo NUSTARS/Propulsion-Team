@@ -554,7 +554,19 @@ int main(void)
 
   printf("First get pressure data\n");
 
-  get_pressure_data();
+  HAL_GPIO_WritePin(GPIOC, GPIO_PIN_12, GPIO_PIN_SET);
+
+
+  HAL_ADCEx_Calibration_Start(&hadc1, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
+  HAL_ADCEx_Calibration_Start(&hadc2, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
+  HAL_ADCEx_Calibration_Start(&hadc3, ADC_CALIB_OFFSET, ADC_SINGLE_ENDED);
+
+  //get_pressure_data();
+
+  HAL_TIM_Base_Start_IT(&htim1);
+
+
+
 
 
 
@@ -567,7 +579,9 @@ int main(void)
   while (1)
   {
 	 //printf("Hi\n");
-	 HAL_Delay(5000);
+	 //printf("In main loop\n");
+	 //get_pressure_data();
+//	 HAL_Delay(5000);
 
 //	 uint8_t new_buffer[10];
 //

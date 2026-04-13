@@ -60,7 +60,7 @@ class SensorGraph {
 	addPoint(x,y) {
 		this.dataPoints.labels.push(x);
 		this.dataPoints.labels = this.dataPoints.labels.slice(-50);
-		this.dataPoints.datasets[0].data.push(this.interpFn(y));
+		this.dataPoints.datasets[0].data.push(y);
 		this.dataPoints.datasets[0].data = this.dataPoints.datasets[0].data.slice(-50);
 		this.chart.data = this.dataPoints;
 		this.currentData.textContent = y.toString();
@@ -139,24 +139,36 @@ class BinaryActuator {
 // makes a pressure transducer interpretation function, 
 // given the resistor's resistance
 // in ohms as an input to the function
-function makePTInterpFn(resistance) {
-	// in omar we trust :)
-	return (x) => (((3300/4095)/resistance) * x * 18.75) - 75
+function makePTInterpFn(resistance, maxPressure) {
+	return (x) => {
+		volts = ((3.3/4095.0)*x)
+		millivolts = volts * 20;
+		milliamps = millivolts / resistance;
+		
+		slope = maxPressure/16;
+		value = slope*(milliamps-4);
+		return value;
+	}
 }
 
 // (3.3/4095 * x) * 18.75 - 75
 // some constants (temporary)
 const num_graphs = 5;
+maxPressures = [600, 600, 600, 300, 300];
+prevArray = [0,0,0,0,0];
+sensorNames = ['ox upstream','chamber','ox stag','ethanol upstream','ethanol stag'];
+
+
 let graphs = [];
 for (let i = 0; i < num_graphs; i++) {
-	graphs.push(new SensorGraph(i.toString(), (x) => x & 0xFF));
+	graphs.push(new SensorGraph(sensorNames[i], makePTInterpFn(1,maxPressures[i])));
 }
 
-solenoid1 = new BinaryActuator("Solenoid 1:", 0, 0)
-solenoid2 = new BinaryActuator("Solenoid 2:", 0, 1)
-servo1 = new BinaryActuator("Servo Ball Valve 1:", 0, 2)
-servo2 = new BinaryActuator("Servo Ball Valve 2:", 0, 3)
-sparkPlug = new BinaryActuator("Sparkplug:", 0, 4)
+solenoid1 = new BinaryActuator("Ox Solenoid:", 0, 0)
+solenoid2 = new BinaryActuator("Ethanol Solenoid:", 0, 1)
+servo1 = new BinaryActuator("Nitrogen Purge:", 0, 2)
+servo2 = new BinaryActuator("Nitrogen In:", 0, 3)
+sparkPlug = new BinaryActuator("Spark Plug:", 0, 4)
 
 
 
@@ -164,14 +176,47 @@ sparkPlug = new BinaryActuator("Sparkplug:", 0, 4)
 // Main execution (we could put it in a function, but idk what to call it (this is me attempting to be funny))
 
 let counter = 0;
+let phase = 0; // on phase 2 we take median of samples and then go back to phase 0
+const num_samples = 3;
+let medianBuffer = Array(num_samples);
+for (let i = 0; i < num_graphs; i++) {
+  medianBuffer[i] = new Array(num_graphs).fill(0);
+}
+
 window.electronAPI.onSerialPacket((packet) => {
 	
+	alpha = 0.9;
+	
 	for (let i = 0; i < num_graphs; i++) {
-		value = graphs[i].interpFn(packet[i] + (packet[i+1] << 8)); //this may be backwards
-		graphs[i].addPoint(counter, value);
+		medianBuffer[phase][i] = graphs[i].interpFn(packet[2*i] + ((packet[2*i+1]) << 8));
+		// only proceed if we have num_samples_samples
+		if (phase != num_samples - 1) {continue};
+		// compute median
+		medianBuffer[phase].sort();
+		let median = medianBuffer[phase][(num_samples-1)/2];
+		value = (1-alpha) * median + alpha * prevArray[i];
+		graphs[i].addPoint(counter,value);
+		prevArray[i] = value;
+		
 	}
 	
+	phase = (phase + 1) % num_samples;
+	if (phase == 0) {
+		counter += 1;
+	}
+	
+	/*
+	for (let i = 0; i < num_graphs; i++) {
+		current = graphs[i].interpFn(packet[2*i] + ((packet[2*i+1]) << 8)); //this may be backwards
+		//if (current < 0) current = 0;
+		value = (1-alpha) * current + alpha * prevArray[i];
+		graphs[i].addPoint(counter, value);
+		prevArray[i] = value;
+	}
+	
+
 	counter += 1;
+	*/
 })
 
 

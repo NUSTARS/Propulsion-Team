@@ -341,3 +341,16 @@ java.lang.NullPointerException: Cannot invoke "org.eclipse.swt.widgets.Shell.get
 
 !ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2026-04-07 21:22:56.256
 !MESSAGE Won't launch debug session since we failed to locate the binary.
+!SESSION 2026-04-14 20:41:03.378 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/sm/.eclipse_keyring
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/sm/.eclipse_keyring
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2026-04-14 20:41:54.749
+!MESSAGE Log4j2 initialized with config file /Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2026-04-14 20:42:03.939
+!MESSAGE Started RMI Server, listening on port 41337

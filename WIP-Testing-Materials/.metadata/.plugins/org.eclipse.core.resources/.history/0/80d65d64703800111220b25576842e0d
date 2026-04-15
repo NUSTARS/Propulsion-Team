@@ -395,16 +395,16 @@ bool first = true;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 
-	//printf("Reached timer callback\n");
+	printf("Reached timer callback\n");
 				//HAL_TIM_OnePulse_Stop_IT(htim, TIM_CHANNEL_1)
 				//htim->State = HAL_TIM_STATE_READY;
 
 	if (htim->Instance == TIM1){
-		//printf("Reached TIM1");
-		//printf("Sparkplug state %x", sparkplug_state);
+		printf("Reached TIM1");
+		printf("Sparkplug state %x", sparkplug_state);
 
 		if (sparkplug_state){
-			//printf("toggling pin\n");
+			printf("toggling pin\n");
 			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_12);
 
 		}

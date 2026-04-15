@@ -3,20 +3,20 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
-		<item value="sparkplug_state"/>
-		<item value="reached timer callback"/>
-		<item value="TIM1_UP"/>
-		<item value="TIM1"/>
-		<item value="void TIM1_UP"/>
-		<item value="&amp;htim1"/>
-		<item value="hal_uart_transmit_it"/>
+		<item value="pressure_transduc"/>
+		<item value="spark_plug_on"/>
+		<item value="adc_convert"/>
+		<item value="toggle"/>
+		<item value="print"/>
+		<item value="main"/>
+		<item value="HAL_TIM_BASE"/>
+		<item value="HAL_GPIO"/>
+		<item value="__HAL_TIM_SET_COUNTER"/>
+		<item value="HAL_UART"/>
+		<item value="send_data"/>
+		<item value="send_Ddata"/>
+		<item value="send_Data"/>
 		<item value="get_pressure_data"/>
-		<item value="HAL_TIM_Base_Start_IT(&amp;htim1);"/>
-		<item value="HAL_TIM_Base_Start_IT(&amp;htim1);&#x0A;"/>
-		<item value="tim1"/>
-		<item value="onepulse"/>
-		<item value="one_pulse"/>
-		<item value="irq_handler"/>
-		<item value="irq_han"/>
+		<item value="elapsedcall"/>
 	</list>
 </section>

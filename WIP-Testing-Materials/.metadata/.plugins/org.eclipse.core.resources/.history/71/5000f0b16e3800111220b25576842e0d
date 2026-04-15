@@ -129,14 +129,15 @@ int num_servos = 2;
 void send_data(uint8_t* buffer, int size){
 //	printf("in send_data\n");
 //
+//	for (int i = 0; i < 10; i ++){
+//		printf("data to send: %x\n", buffer[i]);
+//	}
 
 	uint8_t start_val = 0xaa;
 	uint8_t start_val2 = 0xa;
-	printf("buffer[0] = %i", buffer[0]);
 
 	HAL_UART_Transmit(&huart2, &start_val, 1, HAL_MAX_DELAY);
 	HAL_UART_Transmit(&huart2, &start_val2, 1, HAL_MAX_DELAY);
-
 
 	HAL_UART_Transmit_IT(&huart2, buffer, 10);
 
@@ -166,8 +167,6 @@ void get_pressure_data(){
 //	pressure_transducer_outputs.values.res4 = ADC_Convert(&hadc3);
 //	pressure_transducer_outputs.values.res5 = ADC_Convert(&hadc3);
 //	HAL_ADC_Stop(&hadc3);
-
-	printf("In get pressure data\n");
 
 	adc_vals[0] = ADC_Convert(&hadc1);
 	HAL_ADC_Stop(&hadc1);
@@ -395,16 +394,16 @@ bool first = true;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 
-	//printf("Reached timer callback\n");
+	printf("Reached timer callback\n");
 				//HAL_TIM_OnePulse_Stop_IT(htim, TIM_CHANNEL_1)
 				//htim->State = HAL_TIM_STATE_READY;
 
 	if (htim->Instance == TIM1){
-		//printf("Reached TIM1");
-		//printf("Sparkplug state %x", sparkplug_state);
+		printf("Reached TIM1");
+		printf("Sparkplug state %x", sparkplug_state);
 
 		if (sparkplug_state){
-			//printf("toggling pin\n");
+			printf("toggling pin\n");
 			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_12);
 
 		}

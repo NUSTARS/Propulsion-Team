@@ -196,10 +196,10 @@ void get_pressure_data(){
 }
 
 void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart) {
-	printf("in uart tx callback\n");
+	//printf("in uart tx callback\n");s
     if (huart->Instance == USART2) {
         get_pressure_data(); // Mark transmission complete
-        printf("completed get pressure data\n");
+        //printf("completed get pressure data\n");
     }
 }
 
@@ -315,7 +315,7 @@ void spark_plug_off(){
 //		//HAL_TIM_OnePulse_Stop_IT(htim, TIM_CHANNEL_1);
 //
 //		//htim->State = HAL_TIM_STATE_READY;
-//		if (sparkplug_state){
+//		if (sparkplug_state){s
 //			printf("toggling pin\n");
 //			HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_12);
 //
@@ -333,7 +333,7 @@ void spark_plug_off(){
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	__HAL_TIM_SET_COUNTER(&htim1, 0);
 	if (htim->Instance == TIM1) {
-		printf("toggle\n");
+		//printf("toggle\n");
 		HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_12);
 	}
 
@@ -358,19 +358,19 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     	//input_data = input_data;
 
     	printf("In callback\n");
-    	printf("%x\n", input_data);
+//    	printf("%x\n", input_data);
 
     	solenoid_state = control_solenoids(input_data, solenoid_state);
 
 
-    	printf("%x\n", valve_state);
+    	//printf("%x\n", valve_state);
 
     	uint8_t ball_valve_data = input_data >> 2;
     	//valve_state = input_data;
 
         valve_state = control_ballvalves(ball_valve_data, valve_state);
 
-        printf("%x\n", input_data >> 4);
+        //printf("%x\n", input_data >> 4);
 
 //        if ((input_data >> 4 )& 0x1 & !sparkplug_state){
 //        	sparkplug_state = 0x1;
@@ -494,7 +494,20 @@ int main(void)
 	 //printf("Hi\n");
 	 //printf("In main loop\n");
 	 //get_pressure_data();
-//	 HAL_Delay(5000);
+
+//	  printf("Reached while loop\n");
+//
+//	  HAL_Delay(500);
+//
+//
+//	  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_12) == GPIO_PIN_SET) {
+//	      // Pin is High
+//		  printf("12high\n");
+//	  } else {
+//	      // Pin is Low
+//		  printf("12low\n");
+//	  }
+
 
 //	 uint8_t new_buffer[10];
 //
@@ -827,7 +840,7 @@ static void MX_TIM1_Init(void)
   htim1.Instance = TIM1;
   htim1.Init.Prescaler = 80-1;
   htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-  htim1.Init.Period = 20000-1;
+  htim1.Init.Period = 5000-1;
   htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
   htim1.Init.RepetitionCounter = 0;
   htim1.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;

@@ -1,26 +1,10 @@
-21:14:10 **** Incremental Build of configuration Debug for project test-controls ****
+22:51:40 **** Incremental Build of configuration Debug for project test-controls ****
 make -j7 all 
-arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m7 -std=gnu11 -g3 -DDEBUG -DUSE_PWR_LDO_SUPPLY -DUSE_HAL_DRIVER -DSTM32H753xx -c -I../Core/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc -I../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/main.c: In function 'get_pressure_data':
-../Core/Src/main.c:195:19: warning: passing argument 1 of 'send_data' from incompatible pointer type [-Wincompatible-pointer-types]
-  195 |         send_data(adc_vals, 10);
-      |                   ^~~~~~~~
-      |                   |
-      |                   uint16_t * {aka short unsigned int *}
-../Core/Src/main.c:134:25: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'uint16_t *' {aka 'short unsigned int *'}
-  134 | void send_data(uint8_t* buffer, int size){
-      |                ~~~~~~~~~^~~~~~
-arm-none-eabi-gcc -o "test-controls.elf" @"objects.list"   -mcpu=cortex-m7 -T"/Users/sm/Documents/NUSTARS/Propulsion-Team/WIP-Testing-Materials/test-controls/STM32H753ZITX_FLASH.ld" --specs=nosys.specs -Wl,-Map="test-controls.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv5-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: test-controls.elf
- 
 arm-none-eabi-size  test-controls.elf 
-arm-none-eabi-objdump -h -S test-controls.elf  > "test-controls.list"
    text	   data	    bss	    dec	    hex	filename
-  53316	    112	   2672	  56100	   db24	test-controls.elf
+  53916	    112	   2672	  56700	   dd7c	test-controls.elf
 Finished building: default.size.stdout
  
-Finished building: test-controls.list
- 
 
-21:14:11 Build Finished. 0 errors, 1 warnings. (took 926ms)
+22:51:41 Build Finished. 0 errors, 0 warnings. (took 180ms)
 

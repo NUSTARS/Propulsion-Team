@@ -230,7 +230,9 @@ uint8_t control_ballvalves(uint8_t input_data, uint8_t valve_state){
 }
 
 void spark_plug_on(){
+	printf("Turning spark plug on\n");
 	HAL_GPIO_WritePin(GPIOC, GPIO_PIN_8, GPIO_PIN_SET);
+
 }
 
 
@@ -244,21 +246,63 @@ void spark_plug_off(){
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
     if (huart->Instance == USART2) {
+    	// solenoids - 0 and 1
+//    	if (input_data==0){
+//    		close_servo(0);
+//    		close_servo(1);
+//    	}
+//    	else {
+//    		open_servo(0);
+//    		open_servo(1);
+//    	}
+//        control_solenoids(input_data, &solenoid_state);
+//
+//        // ballvalves 2 and 3
+    	//input_data = input_data;
+
+    	printf("In callback\n");
+//    	printf("%x\n", input_data);
 
     	solenoid_state = control_solenoids(input_data, solenoid_state);
+
+
+    	//printf("%x\n", valve_state);
+
     	uint8_t ball_valve_data = input_data >> 2;
+    	//valve_state = input_data;
+
         valve_state = control_ballvalves(ball_valve_data, valve_state);
 
+        //printf("%x\n", input_data >> 4);
+
+//        if ((input_data >> 4 )& 0x1 & !sparkplug_state){
+//        	sparkplug_state = 0x1;
+//               	spark_plug_on();
+//              }
+
+        // if the bit is high and the spark plug state is low
+
         if (((input_data >> 4 )& 0x1) && !sparkplug_state){
-			sparkplug_state = 0x1;
-			spark_plug_on();
+	sparkplug_state = 0x1;
+	spark_plug_on();
         }
         // if the bit is low and spark plug state is high
 		else if ((((~input_data >> 4) & 0x1) && sparkplug_state)) {
 			sparkplug_state = 0x0;
 			spark_plug_off();
         }
-        HAL_UART_Receive_IT(huart, &input_data, 1);
+        //HAL_UART_Receive_IT(&huart, &input_data, 1); OLD
+        HAL_UART_Receive_IT(huart, &input_data, 1); // NEW
+
+
+
+        // spark plug - on 0.5 s timer & GPIO pin
+
+
+
+
+
+
 
     }
 }
@@ -351,6 +395,33 @@ int main(void)
   //uint16_t data[5] = {0,1,2,3,4};
   while (1)
   {
+	 //printf("Hi\n");
+	 //printf("In main loop\n");
+	 //get_pressure_data();
+
+//	  printf("Reached while loop\n");
+//
+//	  HAL_Delay(500);
+//
+//
+//	  if (HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_12) == GPIO_PIN_SET) {
+//	      // Pin is High
+//		  printf("12high\n");
+//	  } else {
+//	      // Pin is Low
+//		  printf("12low\n");
+//	  }
+
+
+//	 uint8_t new_buffer[10];
+//
+//	 for (int i = 0; i < 10; i++){
+//		 new_buffer[i] = 0x5;
+//	 }
+//
+//	HAL_UART_Transmit(&huart2, new_buffer, 10, 100);
+
+	 //send_data((uint8_t*)data, 5*sizeof(uint16_t));
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

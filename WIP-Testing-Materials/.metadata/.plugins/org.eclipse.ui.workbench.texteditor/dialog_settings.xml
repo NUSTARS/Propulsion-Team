@@ -3,20 +3,20 @@
 	<item key="hasShownOverlayPopupBefore" value="true"/>
 	<item key="replaceBarOpen" value="false"/>
 	<list key="searchhistory">
+		<item value="hal_gpio_writepin"/>
+		<item value="spark_plug_on"/>
+		<item value="channel_3"/>
+		<item value="first"/>
+		<item value="GPIO_PIN_12"/>
+		<item value="tim1"/>
+		<item value="spark_plug"/>
 		<item value="print"/>
 		<item value="adc_convert"/>
-		<item value="spark_plug"/>
 		<item value="hadc3"/>
 		<item value="hadc1"/>
 		<item value="hadcl"/>
 		<item value="for (int"/>
 		<item value="hal_uart_trans"/>
 		<item value="hal_uart_send"/>
-		<item value="send_data"/>
-		<item value="get_pressure"/>
-		<item value="in uart tx callback"/>
-		<item value="adc_vals"/>
-		<item value="adc_Convert"/>
-		<item value="hal_adc_start"/>
 	</list>
 </section>

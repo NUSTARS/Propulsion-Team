@@ -1,10 +1,10 @@
-12:17:24 **** Incremental Build of configuration Debug for project test-controls ****
+19:49:27 **** Incremental Build of configuration Debug for project test-controls ****
 make -j7 all 
 arm-none-eabi-size  test-controls.elf 
    text	   data	    bss	    dec	    hex	filename
-  53916	    112	   2672	  56700	   dd7c	test-controls.elf
+  52844	    112	   2672	  55628	   d94c	test-controls.elf
 Finished building: default.size.stdout
  
 
-12:17:24 Build Finished. 0 errors, 0 warnings. (took 746ms)
+19:49:27 Build Finished. 0 errors, 0 warnings. (took 298ms)
 
